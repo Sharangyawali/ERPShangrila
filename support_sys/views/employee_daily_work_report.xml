@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="employee_daily_work_report_graph_line_view" model="ir.ui.view" >
+        <field name="name">employee_daily_work_report.graph.line.view</field>
+        <field name="model">employee.daily.work.report</field>
+        <field name="arch" type="xml">
+            <graph type="line" sample="1">
+                <field name="employee_id"/>
+                <field name="client_id"/>
+                <field name="branch_id"/>
+                <field name="hours_worked" type="measure"/>
+            </graph>
+        </field>
+    </record>
+    <!-- Overview List View -->
+    <record model="ir.ui.view" id="employee_daily_work_report_list_view">
+        <field name="name">employee_daily_work_report.list.view</field>
+        <field name="model">employee.daily.work.report</field>
+        <field name="arch" type="xml">
+            <tree>
+
+                <field name="employee_id"/>
+                <field name="work_type"/>
+                <field name="client_id"/>
+                <field name="branch_id"/>
+                <field name="project_id"/>
+                <field name="work_date"/>
+                <field name="task_detail"/>
+                <field name="start_time"/>
+                <field name="end_time"/>
+                <field name="hours_worked" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View for SupportSys -->
+    <record model="ir.ui.view" id="employee_daily_work_report_form_view">
+        <field name="name">employee_daily_work_report.form.view</field>
+        <field name="model">employee.daily.work.report</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="work_type"/>
+                            <field name="work_date"/>
+                            <field name="task_detail"/>
+                            <field name="client_id"/>
+                            <field name="project_id"/>
+                        </group>
+                        <group>
+                            <field name="start_time" />
+                            <field name="end_time" />
+                            <field name="hours_worked" />
+                            <field name="supporting_docs" widget="many2many_binary"/>
+                            <field name="is_organization" invisible="true"/>
+                            <field name="branch_id" attrs="{'invisible': [('client_id', '=', False), ('is_organization', '!=', True)]}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Additional Info">
+                            <field name="additional_notes" placeholder="Notes.."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_employee_daily_work_report">
+        <field name="name">Daily Work Report</field>
+        <field name="res_model">employee.daily.work.report</field>
+        <field name="view_mode">tree,form,graph</field>
+    </record>
+</odoo>

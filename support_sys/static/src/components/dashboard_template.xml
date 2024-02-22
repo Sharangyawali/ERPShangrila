@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <!-- Reporting Dashboard Template -->
+    <t t-name="owl.OwlReportingDashboard" owl="1">
+        <div class="vh-100 overflow-auto bg-secondary shadow-lg" >
+            <div class="row m-3">
+                <div class="col-lg-7">
+                    <div class="row">
+                        <div class="col m-0 p-0">
+                            <div class="shadow-sm border m-2 p-4 bg-white">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h1 class="text-primary fw-bold">Reporting Dashboard</h1>
+                                    <div>
+                                        <select class="form-select">
+                                            <option value="0">Select Period</option>
+                                            <option value="7">Last 7 Days</option>
+                                            <option value="30">Last 30 Days</option>
+                                            <option value="90">Last 90 Days</option>
+                                            <option value="365">Last 365 Days</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- KPI Cards -->
+                   <div class="row">
+                       <KpiCard name="'No. Of Problem'" value="state.problem.value" percentage="state.problem.percentage"/>
+
+                        <KpiCard name="'Progress'" value="state.problem.progress" percentage="20"/>
+                        <KpiCard name="'Success '" value="state.problem.finished" percentage="10"/>
+                        <KpiCard name="'New'" value="state.problem.fresh" percentage="-10"/>
+                    </div>
+                </div>
+
+                    <div class="col-lg-5">
+                        <div class="row-lg-4">
+                            <div class="col-12">
+                                <!-- My Performance Section -->
+                                <div class="shadow-sm border m-1 p-4 bg-white" style="height:300px;">
+                                    <h3 class="text-primary fw-bold mb-3"><a href="#">My Performance</a></h3>
+                                    <table class="table table-bordered table-striped">
+                                        <tbody>
+                                            <!-- Today's Average -->
+                                            <tr class="table-success table-bordered">
+                                                <td class="fw-bold" colspan="4"><a href="#">Today's Average</a></td>
+                                            </tr>
+                                            <tr class="table-success table-bordered">
+                                                <td class="fw-bold">Tasks Completed: 10</td>
+                                                <td>Efficiency: 85%</td>
+                                                <td>Customer Satisfaction: 95%</td>
+                                            </tr>
+                                            <!-- Closed Tickets -->
+                                            <tr class="table-info">
+                                                <td class="fw-bold" colspan="4"><a href="#">Closed Tickets</a></td>
+                                            </tr>
+                                            <tr class="table-info">
+                                                <td class="fw-bold">Total Closed: 30</td>
+                                                <td>Resolved: 25</td>
+                                                <td>Closed Without Resolution: 5</td>
+                                            </tr>
+                                            <!-- Success Rate and Average Rating Side by Side -->
+                                            <tr class="table-warning">
+                                                <td class="fw-bold" colspan="2"><a href="#">Success Rate</a></td>
+                                                <td class="fw-bold" colspan="2"><a href="#">Average Rating</a></td>
+                                            </tr>
+                                            <tr class="table-warning">
+                                                <td class="fw-bold" colspan="2">Success Rate: 85%</td>
+                                                <td class="fw-bold" colspan="2">Rating: 4.5/5</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+        <div class="row m-2">
+            <!-- Customer Cards -->
+            <div class="col-lg-3 m-1 p-0">
+                <CustomerCard class="shadow-sm" name="'Ticket '" email="'robingurung@gmail.com'" successRate="'80%'" unsignedCount="10" openCount="1" urgentCount="2" failCount="1"/>
+            </div>
+            <div class="col-lg-3 m-1 p-0">
+                <CustomerCard class="shadow-sm" name="'ISP Support '" email="'saugat'" successRate="'20%'" unsignedCount="8" openCount="2" urgentCount="4" failCount="10"/>
+            </div>
+             <div class="col-lg-5">
+                    <div class="row">
+                        <div class="col m-0 p-0">
+                            <div class="shadow-sm border m-2 p-4 bg-white">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h3 class="text-primary fw-bold">Daily Report</h3>
+                                    <div class="px-3 py-1 bg-primary cursor-pointer">
+                                        <span class="fa fa-arrow-right text-white"/>
+                                    </div>
+                                </div>
+                                <ChartRenderer type="'bar'" title="'Daily Report'" config="state.getMonthlySupport"/>
+                            </div>
+                        </div>
+                    </div>
+             </div>
+
+
+        </div>
+
+        </div>
+    </t>
+</templates>

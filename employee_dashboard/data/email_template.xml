@@ -1,0 +1,89 @@
+<odoo>
+    <data>
+        <record id="leave_request_approval_email_template" model="mail.template">
+            <field name="name">Leave Request Email Template</field>
+            <field name="model_id" ref="employee_dashboard.model_leave_request"/>
+            <field name="subject">Approval of Leave Request</field>
+            <field name="email_from">"{{ user.email }}"</field>
+            <field name="email_to">"{{}}"</field>
+            <field name="body_html" type="html">
+                <p>Hello</p>
+            </field>
+        </record>
+        <!-- leave request rejected email template -->
+        <record id="leave_request_rejected_email_template" model="mail.template">
+            <field name="name">Leave Request Rejected Email Template</field>
+            <field name="model_id" ref="employee_dashboard.model_leave_request"/>
+            <field name="subject">Rejection of Leave Request</field>
+            <field name="email_from">"{{ user.email }}"</field>
+            <field name="email_to">"{{}}"</field>
+            <field name="body_html" type="html">
+                <p>Hello</p>
+            </field>
+        </record>
+
+        <record id="profile_update_request_approval_email_template" model="mail.template">
+            <field name="name">Profile Update Request Accepted Email Template</field>
+            <field name="model_id" ref="employee_dashboard.model_profile_update_request"/>
+            <field name="subject">Approval of Profile Update Request</field>
+            <field name="email_from">"{{ user.email }}"</field>
+            <field name="email_to">"{{}}"</field>
+            <field name="body_html" type="html">
+                <p>Hello</p>
+            </field>
+        </record>
+        <record id="profile_request_rejection_email_template" model="mail.template">
+            <field name="name">Profile Update Request Rejection Email Template</field>
+            <field name="model_id" ref="employee_dashboard.model_profile_update_request"/>
+            <field name="subject">Rejection of Profile Update Request</field>
+            <field name="email_from">"{{ user.email }}"</field>
+            <field name="email_to">"{{}}"</field>
+            <field name="body_html" type="html">
+                <p>Hello </p>
+            </field>
+        </record>
+        <record id="ot_request_approval_email_template" model="mail.template">
+            <field name="name">OT Request Email Template</field>
+            <field name="model_id" ref="employee_dashboard.model_overtime_request"/>
+            <field name="subject">Approval of OT Request</field>
+            <field name="email_from">"{{ user.email }}"</field>
+            <field name="email_to">"{{}}"</field>
+            <field name="body_html" type="html">
+                <p>Hello </p>
+            </field>
+        </record>
+
+        <record id="ot_request_rejection_email_template" model="mail.template">
+            <field name="name">OT Request Rejection Email Template</field>
+            <field name="model_id" ref="employee_dashboard.model_overtime_request"/>
+            <field name="subject">Rejection of OT Request</field>
+            <field name="email_from">"{{ user.email }}"</field>
+            <field name="email_to">"{{}}"</field>
+            <field name="body_html" type="html">
+                <p>Hell</p>
+            </field>
+        </record>
+
+        <record id="employee_registration_request_accepted_email_template" model="mail.template">
+            <field name="name">Employee Registration Request Accepted </field>
+            <field name="model_id" ref="employee_dashboard.model_employee_registration_request"/>
+            <field name="subject">Registration Request Accepted</field>
+            <field name="email_from">"{{ user.email }}"</field>
+            <field name="email_to">"{{}}"</field>
+            <field name="body_html" type="html">
+                <p>Hell</p>
+            </field>
+        </record>
+        <record id="employee_registration_request_rejected_email_template" model="mail.template">
+            <field name="name">Employee Registration Request Rejected </field>
+            <field name="model_id" ref="employee_dashboard.model_employee_registration_request"/>
+            <field name="subject">Registration Request Rejected</field>
+            <field name="email_from">"{{ user.email }}"</field>
+            <field name="email_to">"{{}}"</field>
+            <field name="body_html" type="html">
+                <p>Hell</p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

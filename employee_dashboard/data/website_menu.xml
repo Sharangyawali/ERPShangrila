@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+          <record id="personal_registration_website" model="website.menu">
+            <field name="name">Registration</field>
+            <field name="url">/personal_registration</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">21</field>
+            <!-- <field name="new_window" eval="False"></field> -->
+        </record>
+          <record id="new_ticket_website" model="website.menu">
+            <field name="name">Ticket</field>
+            <field name="url">/ticket_raise</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">21</field>
+            <!-- <field name="new_window" eval="False"></field> -->
+        </record>
+    </data>
+</odoo>

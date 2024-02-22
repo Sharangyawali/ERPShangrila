@@ -1,0 +1,187 @@
+<odoo>
+    <!-- Dashboard Template -->
+    <template id="kitchen_request_template" name="Attendance History Template">
+        <t t-call="website.layout">
+            <link rel="stylesheet"
+                  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" />
+            <script src="https://kit.fontawesome.com/ae360af17e.js" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js">
+            </script>
+
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+                    crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.6/dist/umd/popper.min.js"
+                    integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+                    crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/js/bootstrap.min.js"
+                    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+                    crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+            <div class="wrapper department_details">
+                <t t-call="employee_dashboard.sidebar_template"></t>
+                <div class="grey-bg container-fluid px-5 template-wrapper">
+                    <html>
+                        <style>
+                            :root {
+                            --background-gradient: linear-gradient(178deg, #ffff33 10%, #3333ff);
+                            --gray: #34495e;
+                            --darkgray: #2c3e50;
+                            }
+
+                            select {
+                            /* Reset Select */
+                            appearance: none;
+                            outline: 10px red;
+                            border: 0;
+                            box-shadow: none;
+                            /* Personalize */
+                            flex: 1;
+                            padding: 0 1em;
+                            color: black;
+                            background-color: #c0c4c1;
+                            <!--  color: #fff;-->
+                            <!--  background-color: var(&#45;&#45;darkgray);-->
+                            background-image: none;
+                            cursor: pointer;
+                            border-radius:18px;
+                            }
+                            /* Remove IE arrow */
+                            select::-ms-expand {
+                            display: none;
+                            }
+                            /* Custom Select wrapper */
+                            .select {
+                            position: relative;
+                            display: flex;
+                            width: 13em;
+                            height: 3em;
+                            border-radius: .25em;
+                            overflow: hidden;
+                            }
+                            /* Arrow */
+                            .select::after {
+                            border-radius:10px;
+                            content: '\25BC';
+                            position: absolute;
+                            top: -5px;
+                            right: 15px;
+                            padding: 1em;
+                            background-color: #c0c4c1;
+                            transition: .25s all ease;
+                            pointer-events: none;
+                            }
+                            /* Transition */
+                            .select:hover::after {
+                            color: #f39c12;
+                            }
+                            .custom-input {
+                            border: none;
+                            background-color: transparent;
+                            padding: 0;
+                            margin: 0;
+                            font-size: inherit;
+                            font-family: inherit;
+                            color: inherit;
+                            cursor: text;
+                            outline: none;
+                            width: auto; /* Set width to auto */
+                            }
+
+
+                        </style>
+
+                        <form method="post" action="/submit/kitchen_requests">
+                            <div class="kitchen" style="display:flex;flex-direction:column;">
+                                <div style="display:flex;flex-direction:row;align-items:center;gap:4px;">
+                                    <label for="meal_type" style="font-size:large;font-weight:700;">Meal Type:</label>
+                                    <div class="select">
+                                        <!--                                    <t t-set="food" t-value="foods"/>-->
+                                        <select name="days_of_week" id="days_of_week" onchange="day_of_week_change()">
+                                            <option value="sunday" selected="true">Sunday</option>
+                                            <option value="monday">Monday</option>
+                                            <option value="tuesday" >Tuesday</option>
+                                            <option value="wednesday">Wednesday</option>
+                                            <option value="wednesday">Thursday</option>
+                                            <option value="wednesday">Friday</option>
+                                            <option value="wednesday">Saturday</option>
+
+                                        </select>
+                                    </div>
+                                    <script>
+                                        function day_of_week_change() {
+                                        var days_of_week = document.getElementById("days_of_week").value;
+                                        event.preventDefault()
+                                        var nextUrl='/kitchen_requests?day_of_week='+(days_of_week);
+                                        $.get(nextUrl,function(data){
+                                        $('.table tbody').html($(data).find('.table tbody').html());
+                                        })
+                                        }
+                                    </script>
+                                </div>
+                                <div class="right table-responsive" style="flex:8;overflow:auto">
+                                    <table class="table ">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Meal Type</th>
+                                                <th scope="col">Food</th>
+                                                <th scope="col">Select</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="foods" t-as="food">
+                                                <t t-foreach="food.food_list_ids" t-as="food_list">
+                                                    <t t-if="food['day_of_week']==day">
+                                                        <tr>
+                                                            <td>
+                                                                <input class="custom-input" readonly="1" t-att-value="food_list['meal_time_ref']" id="meal_time_{i}" name="meal_time"/>
+                                                            </td>
+                                                            <td>
+                                                                <t t-set="j" t-value="0"/>
+                                                                <t t-foreach="food_list['meal_name']" t-as="meal">
+                                                                    <span style="border-radius:30%;margin:3px;background-color:blanchedalmond;padding:3px;">
+                                                                        <input class="custom-input" readonly="1" t-att-value="meal['id']" id="meal_name_{{i}}_{{j}}" t-attf-name="meal_name_{{i}}_{{j}}" style="display:none;"/>
+                                                                        <span t-esc="meal['name']"/>
+                                                                    <t t-set="j" t-value="j+1"/>
+                                                                    </span>
+                                                                </t>
+                                                            </td>
+                                                            <script>
+                                                                function check(data){
+                                                                console.log(data)
+                                                                }
+                                                            </script>
+                                                            <td>
+                                                                <input class="form-check-input" type="checkbox"  value="Attending"  t-attf-name="flexCheckDefault_{{i}}" onchange="updateCheckboxValue(this)" checked="checked"/>
+                                                            </td>
+                                                            <script>
+                                                                function updateCheckboxValue(checkbox) {
+                                                                console.log(checkbox)
+                                                                if (checkbox.checked) {
+                                                                checkbox.value = 'Attending';
+                                                                } else {
+                                                                checkbox.value = 'Not Attending';
+                                                                }
+                                                                }
+                                                            </script>
+                                                <t t-set="i" t-value="i+1"/>
+                                                        </tr>
+                                                    </t>
+                                                </t>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div>
+                                    <button  class="btn btn-primary" id="fetch" type="sumbit"> Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </html>
+
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

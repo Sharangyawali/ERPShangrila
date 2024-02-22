@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+   <!-- This is to add fields on the form view of hr.employee model -->
+    <record id="hr_employee_inherit_add_page" model="ir.ui.view">
+        <field name="name">hr.employee.inherit.add.page</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group//field[@name='work_email']" position="after">
+                <field name="contract" widget="binary"></field>
+<!--                <field name="task_type" ></field>-->
+<!--                <field name="project" ></field>-->
+<!--                <field name="client" ></field>-->
+            </xpath>
+            <xpath expr="//notebook//page[@name='hr_settings']" position="after">
+                <page name="More Information">
+                    <group>
+                        <group string="Personal Information">
+                            <field name="language_spoken"></field>
+                            <field name="permanent_address"></field>
+                            <field name="temporary_address"></field>
+                            <field name="age"></field>
+                            <field name="bank_account_no"></field>
+                            <field name="bank_name"></field>
+                            <field name="account_name"></field>
+                        </group>
+                        <group string="Family Information">
+                            <field name="father_name"></field>
+                            <field name="mother_name"></field>
+                            <field name="grandfather_name"></field>
+                            <field name="partner_name"></field>
+                        </group>
+                        <group string="Citizenship Info">
+                            <field name="nationality"></field>
+                            <field name="issued_place"></field>
+                            <field name="pan"></field>
+                            <field name="upload_pan"></field>
+                            <field name="identification_file"></field>
+                        </group>
+                        <group string="Work Related Info">
+                            <field name="related_skills"></field>
+                            <field name="training_taken"></field>
+                            <field name="position"></field>
+                            <field name="cv"></field>
+                            <field name="cover_letter"></field>
+                            <field name="training_certificates"  widget="many2many_binary"></field>
+                        </group>
+                    </group>
+                </page>
+                <page string="Work History">
+                            <field name="work_experience_ids">
+                                <tree>
+                                    <field name="job_position" />
+                                    <field name="duration_of_employment" />
+                                    <field name="company_name" />
+                                    <field name="exit_reason" />
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="previous_employment" />
+                                            <field name="job_position" />
+                                            <field name="duration_of_employment" />
+                                            <field name="company_name" />
+                                            <field name="industry" />
+                                            <field name="responsibilities" />
+                                        </group>
+                                        <group>
+                                            <field name="supervisor_name" />
+                                            <field name="supervisor_contact" />
+                                            <field name="exit_reason" />
+                                        </group>
+                                    </group>
+                                    <notebook>
+                                        <page string="Exit Comments">
+                                            <field name="exit_comments"
+                                                placeholder="Exit Comments.." />
+                                        </page>
+                                    </notebook>
+                                </form>
+                            </field>
+                        </page>
+                        <!-- this is for the page of education  -->
+                        <page string="Education Details">
+                            <field name="education_ids">
+                                <tree>
+                                    <field name="certificate_level"/>
+                                    <field name="field_of_study"/>
+                                    <field name="institution_name"/>
+                                    <field name="degree_obtained"/>
+                                    <field name="graduation_year"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="certificate_level"/>
+                                            <field name="field_of_study"/>
+                                            <field name="institution_name"/>
+                                            <field name="degree_obtained"/>
+                                            <field name="graduation_year"/>
+                                        </group>
+                                        <group>
+                                    <field name="academic_certificates"  widget="many2many_binary"/>
+                                    <field name="relevant_courses"/>
+                                        </group>
+                                    </group>
+                                    <notebook>
+                                        <page string="Additional Info">
+                                            <field name="notes" placeholder='Notes...'/>
+                                        </page>
+                                    </notebook>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Emergency Contacts">
+                            <field name="emergency_contact_id">
+                                <tree>
+                                    <field name="contact_name"/>
+                                    <field name="contact_phone"/>
+                                    <field name="relation"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="contact_name"/>
+                                            <field name="contact_phone"/>
+                                        </group>
+                                        <group>
+                                    <field name="relation"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

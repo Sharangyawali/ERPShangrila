@@ -1,0 +1,179 @@
+<odoo>
+    
+        <!-- this is for dashboard template -->
+        <template id="dashboard_new_template">
+            <html>
+                <head>
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+                </head>
+                <body>
+
+                    
+                    <div class="container-fluid dashboard_container" style="background-color:#fff;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); max-width:1400px;margin-inline:auto;">
+                        <div class="dashboard-header m-center">
+                            Attendance Dashboard
+                        </div>
+                        <div class="row m-cente dashboard-box px-4">
+                            <div class="col">
+                                <div class="card" style="text-align:center;border:none;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1)">
+                                    <div class="card-header" style="font-weight:bold;color:purple">
+                                        Employee
+                                    </div>
+                                    <div class="card-body" style="font-size:22px;font-weight:bold">
+                                        <t t-out="request.env.user.name"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card" style="text-align:center;border:none;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1)">
+                                    <div class="card-header" style="font-weight:bold;color:green">
+                                        Worked Days
+                                    </div>
+                                    <div class="card-body" style="font-size:22px;font-weight:bold">
+                                         <span t-esc="total_present_days"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card" style="text-align:center;border:none;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1)">
+                                    <div class="card-header" style="font-size:36px;font-weight:bold;color:red">
+                                        Worked Hours
+                                    </div>
+                                    <div class="card-body" style="font-size:22px;font-weight:bold">
+                                     <span t-esc="worked_hours"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card" style="text-align:center;border:none;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1)">
+                                    <div class="card-header" style="font-weight:bold;color:#ffc107">
+                                        Leave Count
+                                    </div>
+                                    <div class="card-body" style="font-size:22px;font-weight:bold">
+                                        <span t-esc="leave_count"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="container-fluid dashboard-chart-container">
+                            <div class="row dashboard-chart-container-inner" >
+                                <div class="col">
+                                    <div class="card pie-chart-dashboard-container" >
+                                        <span class="pie_chart_header">
+                                            Attendance - 30 Days
+                                        </span>
+
+                                        <canvas  id="pieChart" ></canvas>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card line-chart-container" >
+                                        <span class="line_chart_header">
+                                                Attendance - Monthly
+                                            </span>
+                                        <div style="top:50%;position:relative;transform:translate(0,-50%);">
+                                        <canvas  id="myEmployeeDashboardChart" height="200" width="300" ></canvas>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <script>
+                        var present_days_in_last_30_days= <t t-esc="present_days_in_last_30_days"/>;
+                        var worked_hours_in_last_30_days=<t t-esc="worked_hours_in_last_30_days"/>
+                        var archived_attendance=<t t-esc="archived_attendance"/>
+                        <!-- for pie chart -->
+                        const barctx = document.getElementById('pieChart');
+                        const data = {
+                            labels: [
+                              'Present',
+                              'Worked Hours',
+                              'Archived'
+                            ],
+                            datasets: [{
+                              label: 'My First Dataset',
+                              data: [present_days_in_last_30_days, worked_hours_in_last_30_days, archived_attendance],
+                              backgroundColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(54, 162, 235)',
+                                'rgb(255, 205, 86)'
+                              ],
+                              hoverOffset: 4
+                            }],
+
+                          };
+                        const config = {
+                            type:'doughnut',
+                            data:data,
+                            options: {
+                                animation: false,
+                                plugins: {
+                                    legend: {
+                                        position: "bottom",
+                                    },
+                                    tooltip: {
+                                        enabled: false,
+                                    },
+                                },
+                                }
+                        }
+                          new Chart(barctx,config)
+                          var jan=<t t-esc="monthly_attendance[1]"/>
+                          var feb=<t t-esc="monthly_attendance[2]"/>
+                          var mar=<t t-esc="monthly_attendance[3]"/>
+                          var apr=<t t-esc="monthly_attendance[4]"/>
+                          var may=<t t-esc="monthly_attendance[5]"/>
+                          var jun=<t t-esc="monthly_attendance[6]"/>
+                          var jul=<t t-esc="monthly_attendance[7]"/>
+                          var aug=<t t-esc="monthly_attendance[8]"/>
+                          var sep=<t t-esc="monthly_attendance[9]"/>
+                          var oct=<t t-esc="monthly_attendance[10]"/>
+                          var nov=<t t-esc="monthly_attendance[11]"/>
+                          var dec=<t t-esc="monthly_attendance[12]"/>
+                          <!-- For line chart -->
+
+                        const lineChartData = {
+                            labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+                            datasets: [{
+                                label: 'Monthly Attendance',
+                                data: [jan, feb, mar, apr, may, jun, jul,aug,sep,oct,nov,dec],
+                                fill: false,
+                                borderColor: 'rgb(75, 192, 192)',
+                                tension: 0.1
+                            }]
+                        };
+
+                          const lineChartCtx = document.getElementById('myEmployeeDashboardChart');
+                          const lineChartConfig = {
+                            type:'line',
+                            data:lineChartData
+                          }
+                          new Chart(lineChartCtx,lineChartConfig);
+                    </script>
+
+                </body>
+            </html>
+        </template>
+
+<!-- 
+        <template id="dashboard_page">
+            <t t-call="website.layout">
+                <div class="main-container">
+                    <div class="container">
+                        <t t-call="employee_dashboard.sidear_template" />
+                    </div>
+                    <div class="dash-container"
+                        >
+                        <t t-call="employee_dashboard.dashboard_template" />
+                    </div>
+                </div>
+            </t>
+        </template> -->
+        
+</odoo>

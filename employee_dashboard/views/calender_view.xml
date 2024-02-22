@@ -1,0 +1,144 @@
+<odoo>
+    <record id="office_calender_view" model="ir.ui.view">
+        <field name="name">office.calender.view</field>
+        <field name="model">office.calender</field>
+        <field name="arch" type="xml">
+            <calendar
+                string="Time Off Request"
+                date_start="holiday_date"
+                color="holiday_ids"
+                quick_add="True"
+                mode="year">
+                <field name="leave_type"  invisible="1" filters="1" />
+            </calendar>
+        </field>
+    </record>
+    <record id="action_office_calender" model="ir.actions.act_window">
+        <field name="name">Calender</field>
+        <field name="res_model">office.calender</field>
+        <field name="view_mode">calendar,form</field>
+        <field name="view_id" ref="office_calender_view"/>
+
+    </record>
+    <menuitem id="office_calender_dashboard" name="Office Calender"
+        parent="hr.menu_hr_root"
+        action="action_office_calender"
+    />
+
+        <record id="personal_calender_view" model="ir.ui.view">
+        <field name="name">personal.calender.view</field>
+        <field name="model">office.calender</field>
+        <field name="arch" type="xml">
+            <calendar
+                string="Leave Request"
+                date_start="start_date"
+                date_stop="end_date"
+                color="leave_type"
+                quick_add="True"
+                mode="year">
+                <field name="leave_type" invisible="1" filters="1" />
+            </calendar>
+        </field>
+    </record>
+        <record id="personal_calendar_view_filter" model="ir.ui.view">
+      <field name="name">personal_calendar_view_filter</field>
+      <field name="model">office.calender</field>
+      <field name="arch" type="xml">
+        <search string="Personal Calendar Search">
+          <field name="employee_id" />
+          <separator />
+          <filter string="Leave Type" name="leave_type" />
+        </search>
+      </field>
+    </record>
+    <record id="action_personal_calender_forEmployee" model="ir.actions.act_window">
+        <field name="name">Personal Calender</field>
+        <field name="res_model">office.calender</field>
+        <field name="view_mode">calendar,form</field>
+      <field name="context">{"search_default_status":0}</field>
+      <field name="search_view_id" ref="personal_calendar_view_filter" />
+        <field name="view_id" ref="personal_calender_view"/>
+    </record>
+<!--    <menuitem id="personal_calender_dashboard" name="Personal Calender"-->
+<!--        parent="hr.menu_hr_root"-->
+<!--        action="action_personal_calender_forEmployee"-->
+<!--    />-->
+
+    <!-- This is for the office holidays model -->
+    <record id="office_holidays_view" model="ir.ui.view">
+        <field name="name">office.holidays.view</field>
+        <field name="model">office.holidays</field>
+        <field name="arch" type="xml">
+            <tree create="bottom">
+                <field name="holiday_name" />
+                <field name="holiday_date" />
+                <field name="holiday_type" />
+            </tree>
+
+        </field>
+    </record>
+
+    <!-- This is for the office holidays model -->
+    <record id="office_holidays_form_view" model="ir.ui.view">
+        <field name="name">office.holidays.form.view</field>
+        <field name="model">office.holidays</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+
+                        <field name="holiday_name" />
+                        <field name="holiday_date" />
+                        <field name="holiday_type" />
+
+                    </group>
+                </sheet>
+            </form>
+
+        </field>
+    </record>
+    <record id="action_office_holidays" model="ir.actions.act_window">
+        <field name="name">Office Holidays</field>
+        <field name="res_model">office.holidays</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="office_holiday_menu" name="Holidays"
+        parent="hr.menu_human_resources_configuration"
+        action="action_office_holidays"
+        sequence="3"
+    />
+
+
+    <!-- this below is for the leave type
+     -->
+    <!-- This is for the office holidays model -->
+    <record id="leave_type_tree_view" model="ir.ui.view">
+        <field name="name">leave.type.tree.view</field>
+        <field name="model">leave.type</field>
+        <field name="arch" type="xml">
+            <tree>
+
+                <field name="name" />
+
+            </tree>
+
+        </field>
+    </record>
+    <record id="action_leave_type" model="ir.actions.act_window">
+        <field name="name">Leave Type</field>
+        <field name="res_model">leave.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="office_leave_type_menu" name="Leave Type"
+        parent="hr.menu_human_resources_configuration"
+        action="action_leave_type"
+        sequence="2"
+    />
+    <!-- Employee Working Time Configuration -->
+    <menuitem id="employee_working_shift_menu" name="Schedule Working Time"
+        parent="hr.menu_human_resources_configuration"
+        action="resource.action_resource_calendar_form"
+        sequence="2"
+    />
+
+</odoo>

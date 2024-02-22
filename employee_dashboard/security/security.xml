@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Grant access to hr.attendance to employee portal group -->
+    <record id="group_employee_portal_attendance" model="ir.model.access">
+        <field name="name">Portal Employee Acces to Attendance</field>
+        <field name="model_id" ref="hr_attendance.model_hr_attendance"/>
+        <field name="group_id" ref="employee_dashboard.employee_portal_group"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <!-- Grant access to hr.employee to employee portal group -->
+    <record id="group_employee_portal_employee" model="ir.model.access">
+        <field name="name">Portal Employee Access to HR Employee</field>
+        <field name="model_id" ref="hr.model_hr_employee"/>
+        <field name="group_id" ref="employee_dashboard.employee_portal_group"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <!-- Grant access to leave request model for employee portal group -->
+    <record id="group_employee_portal_leave_request" model="ir.model.access">
+        <field name="name">Portal Employee Access to Leave Request</field>
+        <field name="model_id" ref="employee_dashboard.model_leave_request"/>
+        <field name="group_id" ref="employee_dashboard.employee_portal_group"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <!-- Grant access to hr department model for employee portal group -->
+    <record id="group_employee_portal_hr_department" model="ir.model.access">
+        <field name="name">Portal Employee Access to HR Department</field>
+        <field name="model_id" ref="hr.model_hr_department"/>
+        <field name="group_id" ref="employee_dashboard.employee_portal_group"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <!-- Grant access to hr department model for employee portal group -->
+    <record id="group_employee_portal_res_partner" model="ir.model.access">
+        <field name="name">Portal Employee Access to Res Partner</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="group_id" ref="employee_dashboard.employee_portal_group"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <!-- Grant access to profile update  request model for employee portal group -->
+    <record id="group_employee_portal_profile_update_request" model="ir.model.access">
+        <field name="name">Portal Employee Access to Profile Update</field>
+        <field name="model_id" ref="employee_dashboard.model_profile_update_request"/>
+        <field name="group_id" ref="employee_dashboard.employee_portal_group"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+  
+
+    <!-- Grant access to office calender model for employee portal group -->
+    <record id="group_employee_portal_calender_model" model="ir.model.access">
+        <field name="name">Portal Employee Access to Office Calender</field>
+        <field name="model_id" ref="employee_dashboard.model_office_calender"/>
+        <field name="group_id" ref="employee_dashboard.employee_portal_group"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+  
+
+    <!-- Grant access to all log attendance model for employee portal group -->
+    <record id="group_employee_portal_all_log_attendance" model="ir.model.access">
+        <field name="name">Portal Employee Access to All log Attendance</field>
+        <field name="model_id" ref="employee_dashboard.model_all_log_attendance"/>
+        <field name="group_id" ref="employee_dashboard.employee_portal_group"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+  
+
+    <!-- Grant access to overtime request model for employee portal group -->
+    <record id="group_employee_portal_overtime_request" model="ir.model.access">
+        <field name="name">Portal Employee Access to Overtime Request Model</field>
+        <field name="model_id" ref="employee_dashboard.model_overtime_request"/>
+        <field name="group_id" ref="employee_dashboard.employee_portal_group"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <!-- Grant access to overtime request model for employee portal group -->
+    <record id="employee_registration_request_access_next" model="ir.model.access">
+        <field name="name">Portal Employeeskkst Model</field>
+        <field name="model_id" ref="employee_dashboard.model_employee_registration_request"/>
+        <field name="group_id" ref="base.group_portal"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+    <record id="employee_registration_rinternal_next" model="ir.model.access">
+        <field name="name">Internal Employeeskkst Model</field>
+        <field name="model_id" ref="employee_dashboard.model_employee_registration_request"/>
+        <field name="group_id" ref="base.group_user"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+     <record id="employee_registration_for_ir_sequence_portal" model="ir.model.access">
+        <field name="name">Employee Registration For Ir Sequence Portal</field>
+        <field name="model_id" ref="base.model_ir_sequence"/>
+        <field name="group_id" ref="base.group_portal"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+         <record id="employee_registration_for_ir_sequence_user" model="ir.model.access">
+        <field name="name">Employee Registration For Ir Sequence User</field>
+        <field name="model_id" ref="base.model_ir_sequence"/>
+        <field name="group_id" ref="base.group_user"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <record id="employee_registration_for_ir_attachment_portal" model="ir.model.access">
+        <field name="name">Employee Registration For Ir Attachment Portal</field>
+        <field name="model_id" ref="base.model_ir_attachment"/>
+        <field name="group_id" ref="base.group_portal"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+      <record id="employee_registration_for_ir_attachment_user" model="ir.model.access">
+        <field name="name">Employee Registration For Ir Attachment User</field>
+        <field name="model_id" ref="base.model_ir_attachment"/>
+        <field name="group_id" ref="base.group_user"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+     <record id="employee_registration_for_employee_work_experience_portal" model="ir.model.access">
+        <field name="name">Employee Registration For Employee Work Experience Portal</field>
+        <field name="model_id" ref="employee_dashboard.model_employee_work_experience"/>
+        <field name="group_id" ref="base.group_portal"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+         <record id="employee_registration_for_employee_work_experience_user" model="ir.model.access">
+        <field name="name">Employee Registration For Employee Work Experience User</field>
+        <field name="model_id" ref="employee_dashboard.model_employee_work_experience"/>
+        <field name="group_id" ref="base.group_user"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+         <record id="employee_registration_for_employee_education_portal" model="ir.model.access">
+        <field name="name">Employee Registration For Employee Education Portal</field>
+        <field name="model_id" ref="employee_dashboard.model_employee_education"/>
+        <field name="group_id" ref="base.group_portal"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+         <record id="employee_registration_for_employee_education_user" model="ir.model.access">
+        <field name="name">Employee Registration For Employee Education User</field>
+        <field name="model_id" ref="employee_dashboard.model_employee_education"/>
+        <field name="group_id" ref="base.group_user"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+        <record id="employee_registration_for_employee_emergency_contact_portal" model="ir.model.access">
+        <field name="name">Employee Registration For Employee Emergency Contact Portal</field>
+        <field name="model_id" ref="employee_dashboard.model_employee_emergency_contact"/>
+        <field name="group_id" ref="base.group_portal"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+        <record id="employee_registration_for_employee_emergency_contact_user" model="ir.model.access">
+        <field name="name">Employee Registration For Employee Emergency Contact User</field>
+        <field name="model_id" ref="employee_dashboard.model_employee_emergency_contact"/>
+        <field name="group_id" ref="base.group_user"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+
+
+</odoo>

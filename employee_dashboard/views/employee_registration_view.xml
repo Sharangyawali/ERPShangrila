@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Overview List View -->
+    <record model="ir.ui.view" id="employee_registration_request_list_view">
+        <field name="name">employee.registration.request.list.view</field>
+        <field name="model">employee.registration.request</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="user_name" />
+                <field name="user_email" />
+                <field name="dob" />
+                <field name="phone" />
+                <field name="father_name" />
+                <field name="mother_name" />
+                <field name="status" decoration-danger="status == 'declined'" decoration-success="status == 'accepted'" decoration-info="status == 'pending'" widget="badge" optional="show" on_change="1" modifiers="{&quot;readonly&quot;: true}"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View for SupportSys -->
+    <record model="ir.ui.view" id="employee_registration_request_form_view">
+        <field name="name">employee.registration.request.form.view</field>
+        <field name="model">employee.registration.request</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="status" widget="statusbar"/>
+                    <button name="accept_request" type="object" string="Accept" class="btn-primary" />
+                    <button name="decline_request" type="object" string="Decline" class="btn-secondary" />
+                    <button name="set_contracts" type="object" string="Set Contract" class="btn-info" attrs="{'invisible': [('status', '!=', 'accepted')]}"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group string="Personal Information">
+                            <field name="user_name" />
+                            <field name="user_email" />
+                            <field name="phone" />
+                            <field name="age" />
+                            <field name="language_spoken" />
+                            <field name="temporary_address" />
+                            <field name="permanent_address" />
+                            <field name="gender" />
+                            <field name="photo" />
+                        </group>
+                        <group string="Family Details">
+                            <field name="father_name" />
+                            <field name="mother_name" />
+                            <field name="marital_status" />
+                            <field name="partner_name" />
+                            <field name="number_of_children" />
+                            <field name="grandfather_name" />
+                            <field name="grandmother_name" />
+                        </group>
+                        <group string="Bank Details">
+                            <field name="bank_account_number" />
+                            <field name="bank_name" />
+                            <field name="account_name" />
+                            <field name="bank_phone_number" />
+                            <field name="pan" />
+                            <field name="upload_pan" />
+                        </group>
+                        <group string="Citizenship Info">
+                            <field name="dob" />
+                            <field name="nationality" />
+                            <!--                              <field name="birth_district"/>-->
+                            <field name="passport_no" />
+                            <field name="citizenship_no" />
+                            <field name="issued_place" />
+                            <field name="identification_file" />
+                        </group>
+
+
+                        <group string="Work Related Info">
+                            <field name="related_skills" />
+                            <field name="training_taken" />
+                            <field name="work_phone" />
+                            <field name="work_email" />
+                            <field name="position" />
+                            <field name="cv" />
+                            <field name="training_certificates" widget="many2many_binary"/>
+
+                        </group>
+<!--                        <group string="Emergency Contacts">-->
+<!--                            <field name="contact_name" />-->
+<!--                            <field name="contact_phone" />-->
+<!--                            <field name="relation" />-->
+<!--                        </group>-->
+                    </group>
+                    <notebook>
+                        <page string="Work History">
+                            <field name="work_experience_ids">
+                                <tree>
+                                    <field name="previous_employment" />
+                                    <field name="job_position" />
+                                    <field name="duration_of_employment" />
+                                    <field name="company_name" />
+                                    <field name="industry" />
+                                    <field name="responsibilities" />
+                                    <field name="supervisor_name" />
+                                    <field name="exit_reason" />
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="previous_employment" />
+                                            <field name="job_position" />
+                                            <field name="duration_of_employment" />
+                                            <field name="company_name" />
+                                            <field name="industry" />
+                                            <field name="responsibilities" />
+                                        </group>
+                                        <group>
+                                            <field name="supervisor_name" />
+                                            <field name="supervisor_contact" />
+                                            <field name="exit_reason" />
+                                        </group>
+                                    </group>
+                                    <notebook>
+                                        <page string="Exit Comments">
+                                            <field name="exit_comments"
+                                                placeholder="Exit Comments.." />
+                                        </page>
+                                    </notebook>
+                                </form>
+                            </field>
+                        </page>
+                        <!-- this is for the page of education  -->
+                        <page string="Education Details">
+                            <field name="education_ids">
+                                <tree>
+                                    <field name="certificate_level"/>
+                                    <field name="field_of_study"/>
+                                    <field name="institution_name"/>
+                                    <field name="degree_obtained"/>
+                                    <field name="graduation_year"/>
+                                    <field name="relevant_courses"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="certificate_level"/>
+                                            <field name="field_of_study"/>
+                                            <field name="institution_name"/>
+                                            <field name="degree_obtained"/>
+                                            <field name="graduation_year"/>
+                                        </group>
+                                        <group>
+                                    <field name="academic_certificates"  widget="many2many_binary"/>
+                                    <field name="relevant_courses"/>
+                                        </group>
+                                    </group>
+                                    <notebook>
+                                        <page string="Additional Info">
+                                            <field name="notes" placeholder='Notes...'/>
+                                        </page>
+                                    </notebook>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Emergency Contacts">
+                            <field name="emergency_contact_id">
+                                <tree>
+                                    <field name="contact_name"/>
+                                    <field name="contact_phone"/>
+                                    <field name="relation"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="contact_name"/>
+                                            <field name="contact_phone"/>
+                                        </group>
+                                        <group>
+                                    <field name="relation"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <!--                <div class="oe_chatter">-->
+                <!--                    <field name="message_follower_ids" />-->
+                <!--                    <field name="activity_ids" />-->
+                <!--                    <field name="message_ids" options="{'post_refresh': 'recipients'}" />-->
+                <!--                </div>-->
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_employee_registration_request">
+        <field name="name">Registration Request</field>
+        <field name="res_model">employee.registration.request</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem name="Registration Request"
+        id="employee_registration_request_menu"
+        parent="hr.menu_hr_employee_payroll"
+        action="action_employee_registration_request" />
+
+          <record id="view_set_contract_popup" model="ir.ui.view">
+        <field name="name">set.contract.popup.form</field>
+        <field name="model">set.contracts.wizard.model</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="contract" widget="binary"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Confirm" type="object" name="save_contract" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

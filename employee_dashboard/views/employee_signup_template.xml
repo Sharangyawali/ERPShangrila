@@ -1,0 +1,688 @@
+<odoo>
+    <template id="employee_submit_page" name="employee_submit_page">
+        <t t-call="website.layout">
+            <html>
+            <head>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+                </head>
+                <body>
+            <style>
+                body{
+                    background:#f8f9fa !important;
+                }
+                form.form .form-control {padding: 5px;}
+                form.form .form-lbl {position: relative; margin: 0 0 3px 0; color: #666 !important;
+                text-transform: capitalize; font-weight: 600; width: 100%;}
+                form.form .remove_file_space{padding: 7px 0 !important; border: transparent;
+                background: transparent; }
+                form.form .select2-container--default .select2-selection--single
+                .select2-selection__rendered,
+                form.form .select2-container--default .select2-selection--single
+                .select2-selection__arrow,
+                form.form .select2-container .select2-selection--single{ height: calc(2.25rem +
+                2px); line-height: calc(2.25rem + 2px);}
+                form.form .select2-container .select2-selection--multiple {min-height: calc(2.25rem
+                + 2px); }
+                form.form .select2-container--default.select2-container--focus
+                .select2-selection--multiple {background-color: #fff; border-color: #80bdff;
+                outline: 0; box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25); }
+                form.form .select2-container--default .select2-selection--single {border: 1px solid
+                #ced4da; }
+                form.form .select2 img {width: 20px; position: relative; top: -2px; margin-right:
+                5px;}
+
+                .password_eye {position: relative; }
+                .icon-view {position: absolute; right: 15px; top: 10px; color: #202020; font-size:
+                12px}
+
+
+                .date-icon, .time-icon{position: relative;}
+                .date-icon i, .time-icon i {position: absolute; bottom: 10px; right: 10px; }
+                .e-form_container{
+                max-width:1200px;
+                background:#fff;
+                padding:1em 0.4em;
+                margin-inline:auto;
+                <!-- margin-top:10px; -->
+                margin-bottom:10px;
+                border-radius:7px;
+                }
+                .form-lbl{
+                position:relative;
+                display:inline-block;
+                max-width:fit-content;
+                }
+                .form-lbl::after{
+                position:absolute;
+                content:"*";
+                color:green;
+                top:-5px;
+                right:-10px;
+
+                }
+
+                .action-btn{
+                text-decoration:none;
+                padding:0.7em 1em;
+                border:1px solid grey;
+                border-radius:7px;
+                margin-top:1em;
+                background:#e7f0fe;
+                transition:all 0.7s ease;
+                }
+                .action-btn:hover{
+                animation: myAnim 2s ease 0s 1 normal none;
+
+
+                }
+                input{
+                    margin-bottom:1.7em;
+                }
+                .action-btn:active{
+                animation: myAnim 2s ease 0s 1 normal none;
+
+                }
+
+                @keyframes myAnim {
+                0% {
+                transform: scale3d(1, 1, 1);
+                }
+
+                30% {
+                transform: scale3d(1.25, 0.75, 1);
+                }
+
+                40% {
+                transform: scale3d(0.75, 1.25, 1);
+                }
+
+                50% {
+                transform: scale3d(1.15, 0.85, 1);
+                }
+
+                65% {
+                transform: scale3d(0.95, 1.05, 1);
+                }
+
+                75% {
+                transform: scale3d(1.05, 0.95, 1);
+                }
+
+                100% {
+                transform: scale3d(1, 1, 1);
+                }
+                }
+
+                .field-border{
+                position:relative;
+                padding:1em;
+                margin-bottom:2em;
+                }
+                .field-label{
+                    position:absolute;
+                    left:0;
+                    top:-25px;
+                    background:#fff;
+                    font-weight:500;
+                    font-size:1.3em;
+                    padding:0.8em;
+                    }
+                    .row{
+                        margin-top:1em;
+                        margin-bottom:1em;
+                    }
+            </style>
+
+
+            <div class="container e-form_container">
+                <br />
+                <h1 align="center">Personal Registration Form</h1>
+                <br />
+                <form class="form" action="/submit/personal_registration" method="post" enctype="multipart/form-data">
+
+                    <div class="fieldset">
+                        <fieldset class="field-border">
+                            <div class="field-label">Personal Details</div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <fieldset class="form-group">
+                                        <label class="form-lbl">Name</label>
+                                        <input type="text" class="form-control" name="user_name" id="" placeholder="" t-att-value="details.user_name" required="true"/>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-4">
+                                    <fieldset class="form-group">
+                                        <label class="form-lbl">Nationality</label>
+                                        <input type="text" class="form-control" id="" name="nationality" placeholder="" required="1" t-att-value="details.nationality"/>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-4">
+                                    <fieldset class="form-group">
+                                        <label class="form-lbl">Date of Birth</label>
+                                        <input type="date" class="form-control" id="" name="dob" placeholder="" t-att-value="details.dob"/>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-4">
+                                    <fieldset class="form-group">
+                                        <label class="form-lbl">Permanent Address</label>
+                                        <input type="text" class="form-control" required="1" name="permanent_address" id="" placeholder="" t-att-value="details.permanent_address"/>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-4">
+                                    <fieldset class="form-group">
+                                        <label class="form-lbl">Temporary Address</label>
+                                        <input type="text" class="form-control" required="1" name="temporary_address" id="" placeholder="" t-att-value="details.temporary_address"/>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-4">
+                                    <fieldset class="form-group">
+                                        <label class="form-lbl">Citizenship Number</label>
+                                        <input type="text" class="form-control"  name="citizenship_no" id="" placeholder="" t-att-value="details.citizenship_no"/>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-4">
+                                    <fieldset class="form-group">
+                                        <label class="form-lbl">PAN Number</label>
+                                        <input type="text" class="form-control" name="pan" id="" placeholder="" t-att-value="details.pan"/>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-4">
+                                    <fieldset class="form-group">
+                                        <label class="form-lbl">Passport Number</label>
+                                        <input type="text" class="form-control" name="passport_no" id="passport_no" placeholder="" t-att-value="details.passport_no"/>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-4">
+                                    <fieldset class="form-group">
+                                        <label class="form-lbl">Email</label>
+                                        <input type="email" class="form-control" required="1" name="user_email" id=""
+                                            placeholder="" t-att-value="details.user_email"/>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-4">
+                                    <fieldset class="form-group">
+                                        <label class="form-lbl">Phone</label>
+                                        <input type="number" class="form-control"  name="phone" id=""
+                                            placeholder="" t-att-value="details.phone" required="1"/>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-4">
+                                    <fieldset class="form-group">
+                                        <label class="form-lbl" for="gender">Gender</label>
+                                        <select class="form-control" id="gender" name="gender">
+                                            <option value="" selected="disabled">Select Gender</option>
+                                            <option value="male" t-att-selected="details['gender']=='male'">Male</option>
+                                            <option value="female" t-att-selected="details['gender']=='female'">Female</option>
+                                            <option value="other" t-att-selected="details['gender']=='other'">Other</option>
+                                            <!-- Add more options as needed -->
+                                        </select>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-4">
+                                    <fieldset class="form-group">
+                                        <label class="form-lbl">Job Position</label>
+                                        <input type="text" class="form-control"  name="job_position" id=""
+                                            placeholder="" t-att-value="details.job_position"/>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-4">
+                                    <fieldset class="form-group">
+                                        <label class="form-lbl">Department</label>
+                                        <input type="text" class="form-control" name="department"  id=""
+                                            placeholder="" t-att-value="details.department"/>
+                                    </fieldset>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <fieldset class="form-group">
+                                        <label class="form-lbl">Age</label>
+                                        <input type="number" class="form-control"  name="age" id=""
+                                            placeholder="" t-att-value="details.age"/>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-4">
+                                    <fieldset class="form-group">
+                                        <label class="form-lbl">Upload Profile Photo</label>
+                                        <input type="file" class="form-control remove_file_space"
+                                            id=""
+                                            name="photo" 
+                                            placeholder="" t-att-value="details.photo"/>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-4">
+                                    <fieldset class="form-group">
+                                        <label class="form-lbl">Upload Citizenship</label>
+                                        <input type="file" class="form-control remove_file_space"
+                                            id=""
+                                            name="identification_file" 
+                                            placeholder="" t-att-value="details.identification_file"/>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-4">
+                                    <fieldset class="form-group">
+                                        <label class="form-lbl">Upload PAN</label>
+                                        <input type="file" class="form-control remove_file_space"
+                                            id=""
+                                            name="upload_pan" 
+                                            placeholder="" t-att-value="details.upload_pan"/>
+                                    </fieldset>
+                                </div>
+                                
+                            </div>
+                        
+                        </fieldset>
+                        <fieldset class="field-border">
+                            <div class="field-label">Family Information</div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <fieldset class="form-group">
+                                        <label class="form-lbl">Father Name</label>
+                                        <input type="text" class="form-control" id=""
+                                        name="father_name"  placeholder="" t-att-value="details.father_name" />
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-4">
+                                    <fieldset class="form-group">
+                                        <label class="form-lbl">Mother Name</label>
+                                        <input type="text" class="form-control" id=""
+                                        name="mother_name" 
+                                            placeholder="" t-att-value="details.mother_name"/>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-4">
+                                    <fieldset class="form-group">
+                                        <label class="form-lbl" for="maritalStatus">Marital Status</label>
+                                        <select class="form-control" id="maritalStatus" name="marital_status">
+                                            <option value="" selected="disabled">Select Marital Status</option>
+                                            <option value="single" t-att-selected="details['marital_status']=='single'">Single</option>
+                                            <option value="married" t-att-selected="details['marital_status']=='married'">Married</option>
+                                            <option value="divorced" t-att-selected="details['marital_status']=='divorced'">Divorced</option>
+                                            <!-- Add more options as needed -->
+                                        </select>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-4">
+                                    <fieldset class="form-group">
+                                        <label class="form-lbl">Partner Name</label>
+                                        <input type="text" class="form-control" id=""
+                                        name="partner_name"   placeholder="" t-att-value="details.partner_name"/>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-4">
+                                    <fieldset class="form-group">
+                                        <label class="form-lbl">Number of Children</label>
+                                        <input type="number" class="form-control" id=""
+                                        name="number_of_children"  placeholder="" t-att-value="details.number_of_children"/>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-4">
+                                    <fieldset class="form-group">
+                                        <label class="form-lbl">Grandfather</label>
+                                        <input type="text" class="form-control" id=""
+                                        name="grandfather_name"  placeholder="" t-att-value="details.grandfather_name"/>
+                                    </fieldset>
+                                </div>
+
+                            </div>
+
+
+                        </fieldset>
+
+
+
+                       
+
+                        <!-- this below is for the Bank Details -->
+                        <fieldset class="field-border">
+                            <div class="field-label">Bank Details</div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <fieldset class="form-group">
+                                        <label class="form-lbl">Bank Name</label>
+                                        <input type="text"  name="bank_name" class="form-control" id="" placeholder="" t-att-value="details.bank_name"/>
+                                    </fieldset>
+                                </div>
+
+                                
+                                  <div class="col-md-4">
+                                      <fieldset class="form-group">
+                                          <label class="form-lbl">Account Name</label>
+                                          <input type="text"  name="account_name" class="form-control" id=""
+                                              placeholder="" t-att-value="details.account_name"/>
+                                      </fieldset>
+                                  </div>
+                                <div class="col-md-4">
+                                    <fieldset class="form-group">
+                                        <label class="form-lbl">Account Number</label>
+                                        <input type="number"  name="bank_account_number" class="form-control" id=""
+                                            placeholder="" t-att-value="details.bank_account_number"/>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </fieldset>
+
+<!--                        Education Information-->
+                        <fieldset class="field-border">
+                            <div class="field-label">Education Information</div>
+                            <table class="table table-striped education_table mt-3" id="educationTable">
+                              <thead>
+                                <tr>
+                                  <th scope="col">Certification Level</th>
+                                  <th scope="col">Field of study</th>
+                                  <th scope="col">Involved Institution</th>
+                                  <th scope="col">Graduation Year</th>
+                                  <th scope="col">Upload Certificates</th>
+                                  <th>
+                                        <button class="btn btn-primary" type="button" style="font-size:xx-small;width:max-content" onclick="addMoreRow()">Add More</button>
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                  <t t-if="details.education_ids">
+                                <tr t-foreach="details.education_ids" t-as="ed">
+                                  <td>
+                                       <select class="form-control" id="certificationLevel" name="certification_level">
+                                            <option value="" selected="disabled">Select Certification Level</option>
+                                            <option value="SEE" t-att-selected="ed.certificate_level=='SEE'">SEE</option>
+                                            <option value="+2" t-att-selected="ed.certificate_level=='+2'">+2</option>
+                                            <option value="bachelor" t-att-selected="ed.certificate_level=='bachelor'">Bachelor</option>
+                                            <option value="master" t-att-selected="ed.certificate_level=='master'">Master</option>
+                                            <option value="phd" t-att-selected="ed.certificate_level=='phd'">PHD</option>
+                                            <option value="other" t-att-selected="ed.certificate_level=='other'">Other</option>
+                                            <!-- Add more options as needed -->
+                                        </select>
+                                  </td>
+                                  <td>
+                                      <input type="text" class="form-control" id=""
+                                        name="field_of_study"  placeholder="" t-att-value="ed.field_of_study"/>
+                                  </td>
+                                  <td>
+                                      <input type="text" class="form-control" id=""
+                                        name="institution_name"    placeholder="" t-att-value="ed.institution_name"/>
+                                  </td>
+                                  <td>
+                                     <input type="date" class="form-control" id=""
+                                        name="graduation_year"    placeholder="" t-att-value="ed.graduation_year"/>
+                                  </td>
+                                  <td>
+                                      <input type="file" class="form-control remove_file_space"
+                                            id=""
+                                            t-attf-name="academic_certificates_{{i}}" t-att-value="ed.academic_certificates" multiple="1" placeholder=""/>
+                                  </td>
+                                    <td>
+                                        <button class="btn btn-danger removeButton" type="button" style="font-size:xx-small;width:max-content" onclick="deleteRow(this)">Delete</button>
+                                    </td>
+                                    <t t-set="i" t-value="i+1"/>
+                                </tr>
+                                  </t>
+                                  <t t-else="">
+                                      <tr>
+                                      <td>
+                                           <select class="form-control" id="certificationLevel" name="certification_level">
+                                                <option value="" selected="disabled">Select Certification Level</option>
+                                                <option value="SEE">SEE</option>
+                                                <option value="+2" >+2</option>
+                                                <option value="bachelor">Bachelor</option>
+                                                <option value="master">Master</option>
+                                                <option value="phd">PHD</option>
+                                                <option value="other">Other</option>
+                                                <!-- Add more options as needed -->
+                                            </select>
+                                      </td>
+                                      <td>
+                                          <input type="text" class="form-control" id=""
+                                            name="field_of_study"  placeholder="" />
+                                      </td>
+                                      <td>
+                                          <input type="text" class="form-control" id=""
+                                            name="institution_name"    placeholder=""/>
+                                      </td>
+                                      <td>
+                                         <input type="date" class="form-control" id=""
+                                            name="graduation_year"    placeholder="" />
+                                      </td>
+                                      <td>
+                                          <input type="file" class="form-control remove_file_space"
+                                                id=""
+                                                t-attf-name="academic_certificates_{{i}}" multiple="1" placeholder=""/>
+                                      </td>
+                                        <td>
+                                            <button class="btn btn-danger removeButton" type="button" style="font-size:xx-small;width:max-content" onclick="deleteRow(this)">Delete</button>
+                                        </td>
+                                    </tr>
+                                  </t>
+                              </tbody>
+                            </table>
+                            <script>
+                                let rowIndex = <t t-out="i"/>
+                                console.log(rowIndex)
+                                 const addMoreRow = () => {
+                                    const newRow = $('#educationTable tbody tr:first').clone();
+                                newRow.find('input[name^="academic_certificates_0"]').attr('name', `academic_certificates_${rowIndex}`);
+                                    newRow.find('input, select').val('');
+                                    $('#educationTable tbody').append(newRow);
+                                rowIndex++;
+                                  };
+                                const deleteRow=(button)=>{
+                                $(button).closest('tr').remove();
+                                }
+                            </script>
+                        </fieldset>
+<!--                        Work Experience-->
+                            <fieldset class="field-border">
+                                <div class="field-label">Work Experience</div>
+                            <table class="table table-striped  mt-3" id="workTable">
+                              <thead>
+                                <tr>
+                                  <th scope="col">Work Positions</th>
+                                  <th scope="col">Number of Experience</th>
+                                  <th scope="col">Previous Involved Company</th>
+                                  <th scope="col">Exit Reason</th>
+                                  <th>
+                                        <button class="btn btn-primary" type="button" style="font-size:xx-small;width:max-content" onclick="addMoreRow2()">Add More</button>
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                  <t t-if="details.work_experience_ids">
+
+                                <tr t-foreach="details.work_experience_ids" t-as="we">
+                                  <td>
+                                     <input type="text"  name="worked_position"  class="form-control" id="" placeholder="" t-att-value="we.job_position"/>
+                                  </td>
+                                  <td>
+                                      <input type="number" class="form-control" id=""
+                                        name="duration_of_employment"
+                                            placeholder="" t-att-value="we.duration_of_employment"/>
+                                  </td>
+                                  <td>
+                                      <input type="text" class="form-control" id=""
+                                        name="company_name"
+                                            placeholder="" t-att-value="we.company_name"/>
+                                  </td>
+                                  <td>
+                                     <select class="form-control" name="exit_reason">
+                                            <option value="" selected="disabled">Select Exit Reason</option>
+                                            <option value="resignation" t-att-selected="we.exit_reason=='resignation'">Resignation</option>
+                                            <option value="termination" t-att-selected="we.exit_reason=='termination'">Termination</option>
+                                            <option value="layoff" t-att-selected="we.exit_reason=='layoff'">Layoff</option>
+                                            <option value="retirement" t-att-selected="we.exit_reason=='retirement'">Retirement</option>
+                                            <option value="others" t-att-selected="we.exit_reason=='others'">Others</option>
+                                            <!-- Add more options as needed -->
+                                        </select>
+                                  </td>
+                                    <td>
+                                        <button class="btn btn-danger removeButton" type="button" style="font-size:xx-small;width:max-content" onclick="deleteRow2(this)">Delete</button>
+                                    </td>
+                                </tr>
+                                  </t>
+                                  <t t-else="">
+                                      <tr>
+                                      <td>
+                                         <input type="text"  name="worked_position"  class="form-control" id="" placeholder="" />
+                                      </td>
+                                      <td>
+                                          <input type="number" class="form-control" id=""
+                                            name="duration_of_employment"
+                                                placeholder="" />
+                                      </td>
+                                      <td>
+                                          <input type="text" class="form-control" id=""
+                                            name="company_name"
+                                                placeholder="" />
+                                      </td>
+                                      <td>
+                                         <select class="form-control" name="exit_reason">
+                                                <option value="" selected="disabled">Select Exit Reason</option>
+                                                <option value="resignation" >Resignation</option>
+                                                <option value="termination">Termination</option>
+                                                <option value="layoff" >Layoff</option>
+                                                <option value="retirement" >Retirement</option>
+                                                <option value="others">Others</option>
+                                                <!-- Add more options as needed -->
+                                            </select>
+                                      </td>
+                                        <td>
+                                            <button class="btn btn-danger removeButton" type="button" style="font-size:xx-small;width:max-content" onclick="deleteRow2(this)">Delete</button>
+                                        </td>
+                                    </tr>
+                                  </t>
+                              </tbody>
+                            </table>
+                                      <div class="row">
+                                           <div class="col-md-4">
+                                    <fieldset class="form-group">
+                                        <label class="form-lbl">Related Skills</label>
+                                        <input type="text" class="form-control" id=""
+                                        name="related_skills"
+                                            placeholder="" t-att-value="details.related_skills" />
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-4">
+                                    <fieldset class="form-group">
+                                        <label class="form-lbl">Professional Certification</label>
+                                        <input type="file" class="form-control" id=""
+                                        name="professional_certifications"
+                                            placeholder="" t-att-value="details.professional_certifications" />
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-4">
+                                    <fieldset class="form-group">
+                                        <label class="form-lbl" for="cvUpload">Upload CV</label>
+                                        <input type="file"
+                                        t-att-value="details.cv"
+                                        class="form-control remove_file_space" id="cvUpload" name="cv" />
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-4">
+                                    <fieldset class="form-group">
+                                        <label class="form-lbl" for="cvUpload">Cover Letter</label>
+                                        <input type="file" class="form-control remove_file_space" t-att-value="details.cover_letter"  id="cvUpload" name="cover_letter" />
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-4">
+                                    <fieldset class="form-group">
+                                        <label class="form-lbl">Training Certificates</label>
+                                        <input type="file"  name="training_certificates" class="form-control remove_file_space"
+                                            id=""
+                                            multiple="true"
+                                            placeholder="" t-att-value="details.training_certificates" />
+                                    </fieldset>
+                                </div>
+                            </div>
+                            </fieldset>
+                            <script>
+                                 const addMoreRow2= () => {
+                                    const newRow = $('#workTable tbody tr:first').clone();
+                                    newRow.find('input, select').val('');
+                                    $('#workTable tbody').append(newRow);
+                                  };
+                                const deleteRow2=(button)=>{
+                                $(button).closest('tr').remove();
+                                }
+                            </script>
+
+<!--                        Emergency Contact-->
+                                   <fieldset class="field-border">
+                            <div class="field-label">Emergency Contacts</div>
+                            <table class="table table-striped  mt-3" id="emergencyTable">
+                              <thead>
+                                <tr>
+                                  <th scope="col">Contact Name</th>
+                                  <th scope="col">Contact Phone</th>
+                                  <th scope="col">Relation</th>
+                                  <th>
+                                        <button class="btn btn-primary" type="button" style="font-size:xx-small;width:max-content" onclick="addMoreRow3()">Add More</button>
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                  <t t-if="details.emergency_contact_id">
+                                            <tr t-foreach="details.emergency_contact_id" t-as="ec">
+                                  <td>
+                                      <input type="text" class="form-control"  name="contact_name"  id="" placeholder="" t-att-value="ec.contact_name"/>
+                                  </td>
+                                  <td>
+                                       <input type="number" class="form-control"  name="contact_phone" id="" t-att-value="ec.contact_phone"
+                                            placeholder="" />
+                                  </td>
+                                  <td>
+                                     <input type="text" class="form-control"  name="relation" id="" t-att-value="ec.relation"
+                                            placeholder="" />
+                                  </td>
+                                    <td>
+                                        <button class="btn btn-danger removeButton" type="button" style="font-size:xx-small;width:max-content" onclick="deleteRow3(this)">Delete</button>
+                                    </td>
+                                </tr>
+                                  </t>
+                                  <t t-else="">
+
+                                <tr>
+                                  <td>
+                                      <input type="text" class="form-control"  name="contact_name"  id="" placeholder="" />
+                                  </td>
+                                  <td>
+                                       <input type="number" class="form-control"  name="contact_phone" id=""
+                                            placeholder="" />
+                                  </td>
+                                  <td>
+                                     <input type="text" class="form-control"  name="relation" id=""
+                                            placeholder="" />
+                                  </td>
+                                    <td>
+                                        <button class="btn btn-danger removeButton" type="button" style="font-size:xx-small;width:max-content" onclick="deleteRow3(this)">Delete</button>
+                                    </td>
+                                </tr>
+                                  </t>
+
+                              </tbody>
+                            </table>
+                            <script>
+                                 const addMoreRow3 = () => {
+                                console.log("add row")
+                                    const newRow = $('#emergencyTable tbody tr:first').clone();
+                                    newRow.find('input, select').val('');
+                                    $('#emergencyTable tbody').append(newRow);
+                                  };
+                                const deleteRow3=(button)=>{
+                                $(button).closest('tr').remove();
+                                }
+                            </script>
+                        </fieldset>
+                        <div style="width:100%;display:flex;justify-content:center;gap:3px;">
+                            <button type="submit" class="action-btn btn" style="background-color:#35979c;color:white">
+                                Save Changes
+                            </button>
+                            <button type="submit" class="action-btn btn" style="background-color:#35979c;color:white">
+                                Register
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <script type="text/javascript" src=""/>
+            </body>
+        </html>
+        </t>
+    </template>
+</odoo>

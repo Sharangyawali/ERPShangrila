@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+    <!-- Parent menu item for leave request and overtime request -->
+    <menuitem id="menu_employee_request" name="Request"
+      parent="hr.menu_hr_root"
+      sequence="3" />
+
+      <record id="leave_request_tree_view" model="ir.ui.view">
+        <field name="model">leave.request.tree.view</field>
+        <field name="model">leave.request</field>
+        <field name="arch" type="xml">
+          <tree create="False">
+            <field name="employee_id"></field>
+            <field name="department"></field>
+  <!--          <field name="start_date"></field>-->
+  <!--          <field name="ending_date"></field>-->
+  <!--          <field name="allowed_duration"></field>-->
+  <!--          <field name="requested_duration"></field>-->
+            <field name="leave_type"></field>
+            <field name="duration_type"></field>
+            <field name="supporting_document"></field>
+            <!-- <field name="reason"></field> -->
+            <field name="status" decoration-danger="status == 'declined'" decoration-success="status == 'approved'" decoration-info="status == 'pending'" widget="badge" optional="show" on_change="1" modifiers="{&quot;readonly&quot;: true}"/>
+          </tree>
+        </field>
+      </record>
+  
+      <record id="leave_request_form_view" model="ir.ui.view">
+        <field name="model">leave.request.form.view</field>
+        <field name="model">leave.request</field>
+        <field name="arch" type="xml">
+          <form create="False">
+            <header>
+              <field name="status" widget="statusbar" />
+              <button name="accept_request" type="object" string="Approve"
+                class="oe_highlight btn-primary" />
+              <button name="decline_request" type="object" string="Decline"
+                class="oe_highlight btn-secondary" />
+                <button name="allocate_duration_action" type="object" string="Allocate Duration"
+                class="oe_highlight btn-primary" attrs="{'invisible': [('duration_type', '!=', 'full-day')]}"/>
+            </header>
+            <sheet>
+              <group>
+                <group>
+                  <!-- <field name="create_date"></field> -->
+                  <field name="employee_id" readonly="1"></field>
+                  <field name="department" readonly="1"></field>
+  <!--                <field name="start_date" readonly="1"></field>-->
+                  <field name="start_date_ad"  attrs="{'invisible': [('duration_type', '!=', 'full-day')]}"/>
+                  <field name="end_date_ad"  attrs="{'invisible': [('duration_type', '!=', 'full-day')]}"/>
+                  <field name="requested_duration"  attrs="{'invisible': [('duration_type', '!=', 'full-day')]}"/>
+  <!--                <field name="ending_date" readonly="1"></field>-->
+  <!--                <field name="requested_duration" readonly="1"></field>-->
+                  <field name="start_time"  attrs="{'invisible': [('duration_type', '!=', 'half-day')]}"/>
+                  <field name="end_time"  attrs="{'invisible': [('duration_type', '!=', 'half-day')]}"/>
+                  <field name="date_for_half_leave" attrs="{'invisible': [('duration_type', '!=', 'half-day')]}"/>
+  
+                  <field name="allowed_duration" class="oe_inline"/>
+                </group>
+                <group>
+                  <field name="leave_type" readonly="1"></field>
+                  <field name="duration_type" readonly="1"></field>
+                  <field name="supporting_document" readonly="1"></field>
+                  <field name="reason" readonly="1"></field>
+                </group>
+              </group>
+            </sheet>
+            <div class="oe_chatter">
+              <field name="message_follower_ids" />
+              <field name="message_ids" />
+            </div>
+          </form>
+        </field>
+      </record>
+    <!-- LEAVE REQUEST SEARCH -->
+    <record id="leave_request_view_filter" model="ir.ui.view">
+      <field name="name">leave_request_view_filter</field>
+      <field name="model">leave.request</field>
+      <field name="arch" type="xml">
+        <search string="Leave Request Search">
+          <field name="employee_id" />
+          <!-- <filter string="My Attendances" name="myattendances" domain="[('employee_id.user_id',
+          '=', uid)]" /> -->
+          <separator />
+          <filter string="Status" name="status"/>
+          <filter string="Leave Type" name="leave_type" />
+          <!-- <filter string="No Check Out" name="nocheckout" domain="[('check_out', '=', False)]"
+          /> -->
+          <group expand="0" string="Group By">
+            <!-- <filter string="Employee" name="employee_id" context="{'group_by': 'employee_id'}" /> -->
+            <filter string="Status" name="status" context="{'group_by': 'status'}" />
+            <!-- <filter string="Check Out" name="groupby_check_out" context="{'group_by':
+            'check_out'}"/> -->
+          </group>
+        </search>
+      </field>
+    </record>
+    <record id="action_leave_request" model="ir.actions.act_window">
+      <field name="name">Leave Request</field>
+      <field name="res_model">leave.request</field>
+      <field name="view_mode">tree,form</field>
+      <field name="context">{"search_default_status":0}</field>
+      <field name="search_view_id" ref="leave_request_view_filter" />
+      <field name="help" type="html">
+        <p class="o_view_nocontent_empty_folder">
+          I was not able to find the records Damodar
+        </p>
+        <p>
+          The attendance records of your employees will be displayed here.
+        </p>
+      </field>
+
+    </record>
+    <menuitem id="menu_action_request" name="Leave Request" action="action_leave_request"
+      parent="menu_employee_request"
+      sequence="3" />
+
+    <!-- This below is for the overtime request -->
+    <record id="overtime_request_tree_view" model="ir.ui.view">
+      <field name="name">overtime.request.tree.view</field>
+      <field name="model">overtime.request</field>
+      <field name="arch" type="xml">
+        <tree create="False">
+          <field name="emp_name"></field>
+          <field name="emp_department"></field>
+          <field name="emp_involved_project"></field>
+          <field name="overtime_request_date"></field>
+          <field name="ot_requested_duration"></field>
+          <field name="ot_allowed_duration"></field>
+          <field name="ot_reason"></field>
+          <!-- <field name="reason"></field> -->
+          <field name="status" decoration-danger="status == 'declined'" decoration-success="status == 'approved'" decoration-info="status == 'pending'" widget="badge" optional="show" on_change="1" modifiers="{&quot;readonly&quot;: true}"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <record id="overtime_request_form_view" model="ir.ui.view">
+      <field name="name">overtime.request.form.view</field>
+      <field name="model">overtime.request</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>
+            <field name="status" widget="statusbar" />
+            <button name="accept_request" type="object" string="Approve"
+              class="oe_highlight btn-primary" />
+            <button name="decline_request" type="object" string="Decline"
+              class="oe_highlight btn-secondary" />
+          </header>
+          <sheet>
+            <group>
+              <group>
+                <!-- <field name="create_date"></field> -->
+                <field name="emp_name"></field>
+                <field name="emp_department"></field>
+                <field name="emp_involved_project"></field>
+                <field name="ot_reason"></field>
+                <!-- <div>
+
+                  <div class="o_row">
+                    <field name="allowed_duration" class="oe_inline" modifiers="{&quot;readonly&quot;: true}"/>
+                    <span style="text-align:end">Days</span>
+                  </div>
+              </div> -->
+              </group>
+              <group>
+                <field name="overtime_request_date"></field>
+                <field name="ot_requested_duration"></field>
+                <field name="ot_allowed_duration"></field>
+
+              </group>
+            </group>
+          </sheet>
+          <div class="oe_chatter">
+            <field name="message_follower_ids" />
+            <field name="message_ids" />
+          </div>
+        </form>
+      </field>
+    </record>
+    <record id="action_overtime_request" model="ir.actions.act_window">
+      <field name="name">Overtime Request</field>
+      <field name="res_model">overtime.request</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="menu_overtime_request" name="Overtime Request" action="action_overtime_request"
+      parent="menu_employee_request"
+      sequence="3" />
+
+    <!-- This below is for the profile update request menu and views -->
+    <record id="profile_update_request_tree_view" model="ir.ui.view">
+      <field name="name">profile.update.request.tree.view</field>
+      <field name="model">profile.update.request</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="employee_name"></field>
+          <field name="department"></field>
+          <field name="phone"></field>
+          <field name="email"></field>
+          <field name="status" decoration-danger="status == 'declined'" decoration-success="status == 'approved'" decoration-info="status == 'pending'" widget="badge" optional="show" on_change="1" modifiers="{&quot;readonly&quot;: true}"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <record id="profile_update_request_form_view" model="ir.ui.view">
+      <field name="name">profile.update.request.form.view</field>
+      <field name="model">profile.update.request</field>
+      <field name="arch" type="xml">
+        <form __validate__="0">
+          <header>
+            <field name="status" widget="statusbar" />
+            <button name="approve_request" type="object" string="Apply Change"
+              class="oe_highlight btn-primary" />
+            <button name="decline_request" type="object"
+              string="Decline Change"
+              class="oe_highlight btn-secondary" />
+          </header>
+          <sheet>
+            <!-- <div class="oe_button_box" name="button_box">
+              <button name="682" class="oe_stat_button" icon="fa-money" type="action">
+                <field name="create_date" widget="statinfo" string="Leave Request"
+                  help="Leave Request Details" />
+              </button>
+            </div> -->
+            <group>
+              <separator string="Personal Information" />
+              <group>
+                <field name="employee_name"></field>
+                <field name="department"></field>
+                <field name="phone"></field>
+                <field name="email"></field>
+                <field name="mobile"></field>
+                <field name="street"></field>
+                <field name="city"></field>
+                <field name="zip"></field>
+
+              </group>
+              <separator string="Work Information" />
+              <group>
+                <field name="marital_status"></field>
+                <field name="degree_of_study"></field>
+                <field name="study_field"></field>
+                <field name="profile"></field>
+
+              </group>
+            </group>
+          </sheet>
+          <div class="oe_chatter">
+            <field name="message_follower_ids" />
+            <field name="message_ids" />
+          </div>
+        </form>
+      </field>
+    </record>
+    <record id="action_profile_update_request" model="ir.actions.act_window">
+      <field name="name">Profile Update Request</field>
+      <field name="res_model">profile.update.request</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="menu_profile_update_request" name="Profile Update Request"
+      action="action_profile_update_request"
+      parent="menu_employee_request"
+      sequence="3" />
+
+
+    <!-- this below is for the all log attendance  -->
+    <record id="view_all_log_attendance_tree" model="ir.ui.view">
+      <field name="name">all.log.attendance.tree</field>
+      <field name="model">all.log.attendance</field>
+      <field name="arch" type="xml">
+        <tree string="Attendance" create="false">
+          <field name="create_date" />
+          <field name="employee" />
+          <field name="punch_type" />
+          <field name="punching_time" />
+          <field name="punching_latitude" />
+          <field name="punching_longitude" />
+          <field name="punching_address" />
+          <field name="proof" widget="binary" class="oe_image_custom"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="action_all_log_attendance" model="ir.actions.act_window">
+      <field name="name">All log attendance</field>
+      <field name="res_model">all.log.attendance</field>
+      <field name="view_mode">tree</field>
+    </record>
+    <menuitem id="menu_action_all_log_attendance" name="Portal Attendance log"
+      action="action_all_log_attendance"
+      parent="biometric_attendance.zk_machine_menu"
+      sequence="3" />
+
+
+      <!-- this below is for the transient model to open the wizard  -->
+
+      <record id="view_allowed_duration_popup" model="ir.ui.view">
+        <field name="name">counter.allowed.duration.wizard.form</field>
+        <field name="model">allow.duration.wizard.model</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                      
+<!--                        <field name="duration_count"/>-->
+                        <field name="leave_start_date"/>
+                        <field name="leave_end_date"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Confirm" type="object" name="update_counter_offer_price" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+  </data>
+</odoo>

@@ -1,0 +1,93 @@
+body{
+  background-color:#ffffff;
+}
+
+// utility classes
+.hidden{
+display:none;
+visibility:invisible;
+}
+
+.m-center{
+margin-inline:auto;
+}
+.dashboard-box{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+align-items:center;
+justify-content:center;
+gap:20px;
+max-width:1000px;
+margin-inline:auto;
+}
+.card-body{
+font-size:0.9em !important;}
+.card-header{
+font-size:1em !important;
+}
+.card{
+box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px !important;
+padding:1em;
+}
+//   // to blur the background of check in and check out page
+
+// this below is for dashboard scss
+.dashboard-header{
+font-size:28px;
+min-height: 100px;
+display:flex;
+align-items: center ;
+// font-weight:;
+margin-left:18px;
+text-align:left;
+// background-color: red;
+}
+.dashboard-chart-container{
+  padding:3em;
+  display:grid;
+  place-items:center;
+
+// box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.dashboard-chart-container-inner{
+margin-inline:auto;
+width:100%;
+display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(300px,1fr)) !important;
+ gap:20px;
+
+
+}
+.line-chart-container{
+height:450px;
+ .line_chart_header{
+    // background-color: red;
+    font-size: 1.1em;
+    font-weight:500;
+    margin-inline:auto;
+  }
+}
+
+.pie-chart-dashboard-container{
+height:450px;
+  max-width:500px !important;
+  // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border:none;
+  gap:15px;
+  text-align:center;
+ .pie_chart_header{
+    // background-color: red;
+    font-size: 1.1em;
+    font-weight:500;
+  }
+
+}
+
+}
+.check-in-time{
+display:none;
+font-size:18px;
+}
+.check-out-time{
+display:none;
+font-size: 18px;
+}

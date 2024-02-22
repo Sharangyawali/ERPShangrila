@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="ticket_sequence_for_employee_registration" model="ir.sequence">
+        <field name="name">Employee Registration Code</field>
+        <field name="code">employee.registration.request.code</field>
+        <field name="prefix">ERR_60</field>
+        <field name="padding">5</field>
+        <field name="number_increment" eval="1"/>
+    </record>
+</odoo>

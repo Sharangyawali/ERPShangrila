@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+support_sys.access_advance_request,access_advance_request,support_sys.model_advance_request,base.group_user,1,1,1,1
+support_sys.access_expense_type,access_expense_type,support_sys.model_expense_type,base.group_user,1,1,1,1
+support_sys.access_expense_request,access_expense_request,support_sys.model_expense_request,base.group_user,1,1,1,1
+support_sys.access_client_info,access_client_info,support_sys.model_client_info,base.group_user,1,1,1,1
+support_sys.access_client_type,access_client_type,support_sys.model_client_type,base.group_user,1,1,1,1
+support_sys.access_company_project,access_company_project,support_sys.model_company_project,base.group_user,1,1,1,1
+support_sys.access_branch_info,access_branch_info,support_sys.model_branch_info,base.group_user,1,1,1,1
+support_sys.access_ticket_type,access_ticket_type,support_sys.model_ticket_type,base.group_user,1,1,1,1
+support_sys.access_employee_task_assignment,access_employee_task_assignment,support_sys.model_employee_task_assignment,base.group_user,1,1,1,1
+support_sys.access_employee_daily_work_report,access_employee_daily_work_report,support_sys.model_employee_daily_work_report,base.group_user,1,1,1,1
+support_sys.access_employee_work_type,access_employee_work_type,support_sys.model_employee_work_type,base.group_user,1,1,1,1
+support_sys.access_ticket_request,access_ticket_request,support_sys.model_ticket_request,base.group_user,1,1,1,1
+support_sys.access_company_service_category,access_company_service_category,support_sys.model_company_service_category,base.group_user,1,1,1,1
+support_sys.access_assign_ticket_wizard_model,access_assign_ticket_wizard_model,support_sys.model_assign_ticket_wizard_model,base.group_user,1,1,1,1

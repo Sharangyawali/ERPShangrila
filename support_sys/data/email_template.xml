@@ -1,0 +1,24 @@
+<!-- views/email_templates.xml -->
+
+<odoo>
+    <record id="email_template_ticket_raise" model="mail.template">
+        <field name="name">Ticket Raised Notification</field>
+        <field name="model_id" ref="model_ticket_raise"/>
+        <field name="subject">Your Ticket Has Been Raised</field>
+        <field name="email_from">rajkumar.181427@ncit.edu.np</field>
+        <field name="email_to">{{object.client_email}}</field>
+        <field name="body_html">
+            <![CDATA[
+                <h1>Hello</h1>
+                <!--<p>Your ticket of type {{object.ticket_type}} has been raised successfully.</p>-->
+
+                <p>Your <t t-esc="object.ticket_type"/> has been processed successfully.</p>
+                <p>Your TICKET ID:<t t-esc="object.ticket_id"/></p>
+                <p>We will inform you as soon as possible .</p><br/>
+                <p>Keep in touch</p><br/>
+                <p>Thank you</p>
+
+            ]]>
+        </field>
+    </record>
+</odoo>

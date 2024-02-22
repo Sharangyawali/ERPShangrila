@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+            <!-- Overview List View -->
+            <record model="ir.ui.view" id="expense_request_list_view">
+                <field name="name">expense.request.list.view</field>
+                <field name="model">expense.request</field>
+                <field name="arch" type="xml">
+                    <tree>
+                        <field name="employee_id"/>
+                        <field name="project_id" widget="many2many_tags"/>
+                        <field name="serviced_client_id" widget="many2many_tags"/>
+                        <field name="expense_type" widget="many2many_tags"/>
+                        <field name="expense_description"/>
+                        <field name="expense_start_date"/>
+                        <field name="expense_end_date"/>
+                        <field name="amount"/>
+                        <field name="starting_location"/>
+                        <field name="ending_location"/>
+                        <field name="receipt_attachment"/>
+                        <field name="state"/>
+                    </tree>
+                </field>
+            </record>
+    
+            <!-- Form View for SupportSys -->
+            <record model="ir.ui.view" id="expense_request_form_view">
+                <field name="name">expense.request.form.view</field>
+                <field name="model">expense.request</field>
+                <field name="arch" type="xml">
+                    <form>
+                        <header>
+                            <button id="action_accepted" name="action_accepted" string="ACCEPT" class="btn-primary"
+                                    type="object"/>
+                            <button id="action_rejected" name="action_rejected" string="REJECT" class="btn-secondary"
+                                    type="object"/>
+    
+                            <field name="state" widget="statusbar" nolabel="1" />
+                        </header>
+                        <sheet>
+
+                            <group>
+                                <group>
+                                    <field name="employee_id"/>
+                                    <field name="project_id" widget="many2many_tags"/>
+    
+                                    <field name="serviced_client_id" widget="many2many_tags"/>
+                                    <field name="expense_type" widget="many2many_tags" attrs="{'no_create':True}"/>
+                                    <field name="expense_description"/>
+                                    <field name="expense_start_date"/>
+                                    <field name="expense_end_date"/>
+
+                                </group>
+                                <group>
+                                    <field name="currency_id"/>
+                                    <field name="amount"/>
+                                    <field name="starting_location"/>
+                                    <field name="ending_location"/>
+                                    <field name="receipt_attachment"/>
+                                </group>
+                            </group>
+                            <notebook>
+                                <page string="Additional Info">
+                                    <field name="notes" placeholder="Notes.."/>
+                                </page>
+                            </notebook>
+                        </sheet>
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids"/>
+                            <field name="activity_ids"/>
+                            <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                        </div>
+                    </form>
+                </field>
+            </record>
+    
+            <record model="ir.actions.act_window" id="action_expense_request">
+                <field name="name">Expense Request</field>
+                <field name="res_model">expense.request</field>
+                <field name="view_mode">tree,form</field>
+            </record>
+
+            <!-- this below is for the advance expense request -->
+            <record model="ir.ui.view" id="advance_request_list_view">
+                <field name="name">advance.request.list.view</field>
+                <field name="model">advance.request</field>
+                <field name="arch" type="xml">
+                    <tree>
+                            
+                        <field name="employee_id"/>
+                        <field name="requested_amount"/>
+                        <field name="expense_type"/>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                        <field name="file_upload"/>
+                        <field name="advance_request_reason"/>
+                        <field name="state"/>
+
+                    </tree>
+                </field>
+            </record>
+    
+            <!-- Form View for SupportSys -->
+            <record model="ir.ui.view" id="advance_request_form_view">
+                <field name="name">advance.request.form.view</field>
+                <field name="model">advance.request</field>
+                <field name="arch" type="xml">
+                    <form>
+                        <header>
+                            <button id="action_accepted" name="action_accepted" string="ACCEPT" class="btn-primary"
+                                    type="object"/>
+                            <button id="action_rejected" name="action_rejected" string="REJECT" class="btn-secondary"
+                                    type="object"/>
+    
+                            <field name="state" widget="statusbar" nolabel="1"/>
+                        </header>
+                        <sheet>
+                            <group>
+                                <group>
+                                    <field name="employee_id"/>
+                                    <field name="currency_id"/>
+                                    <field name="requested_amount"/>
+                                    <field name="expense_type"/>
+                                </group>
+                                <group>
+                                    <field name="date_from"/>
+                                    <field name="date_to"/>
+                                    <field name="file_upload"/>
+                                    <field name="advance_request_reason"/>
+                                </group>
+                            </group>
+                            <notebook>
+                                <page string="Additional Info">
+                                    <field name="notes" placeholder="Notes.."/>
+                                </page>
+                            </notebook>
+                        </sheet>
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids"/>
+                            <field name="activity_ids"/>
+                            <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                        </div>
+                    </form>
+                </field>
+            </record>
+    
+            <record model="ir.actions.act_window" id="action_advance_request">
+                <field name="name">Advance Request</field>
+                <field name="res_model">advance.request</field>
+                <field name="view_mode">tree,form</field>
+            </record>
+
+    
+</odoo>

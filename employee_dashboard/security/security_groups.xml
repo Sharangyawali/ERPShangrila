@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="employee_portal_group" model="res.groups">
+            <field name="name">Employee Portal Group</field>
+        </record>
+         <record id="employee_internal_user_group" model="res.groups">
+            <field name="name">Employee Internal User Group</field>
+        </record>
+        <record id="employee_admin_group" model="res.groups">
+            <field name="name">Employee Admin Group</field>
+        </record>
+    </data>
+
+</odoo>

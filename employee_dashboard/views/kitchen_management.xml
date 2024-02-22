@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Parent menu item for leave request and overtime request -->
+    <menuitem id="menu_kitchen_info" name="Kitchen"
+        parent="hr.menu_hr_root"
+        sequence="3" />
+    <!--
+    <record id="view_food_list_tree" model="ir.ui.view">
+        <field name="name">food.list.tree</field>
+        <field name="model">food.list</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="meal_time" />
+                <field name="meal_name" widget="many2many_tags" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_food_list" model="ir.actions.act_window">
+        <field name="name">Food Details</field>
+        <field name="res_model">food.list</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="menu_food_list" name="Food Info"
+        parent="menu_kitchen_info"
+        action="action_food_list"
+        sequence="3" /> -->
+
+
+    <!-- the food mapping view -->
+
+
+    <record id="view_food_mapping_tree" model="ir.ui.view">
+        <field name="name">food.mapping.tree</field>
+        <field name="model">food.mapping</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="day_of_week" />
+                <field name="food_list_ids"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_food_mapping_form" model="ir.ui.view">
+        <field name="name">food.mapping.form</field>
+        <field name="model">food.mapping</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="day_of_week" />
+                    </group>
+                    <notebook>
+                        <page string="Meals Info">
+                            <field name="food_list_ids">
+                                <tree>
+                                    <field name="meal_time_ref"/>
+                                    <field name="meal_name" widget="many2many_tags"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="meal_time_ref"/>
+                                        <field name="meal_name" widget="many2many_tags" />
+                                    </group>
+                                </form>
+                            </field>
+
+                        </page>
+
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_food_mapping" model="ir.actions.act_window">
+        <field name="name">Food Mapping</field>
+        <field name="res_model">food.mapping</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="menu_food_mapping" name="Food Mapping"
+        parent="menu_kitchen_info"
+        action="action_food_mapping"
+        sequence="3" />
+
+
+    <!-- the food mapping view -->
+
+
+    <record id="view_food_name_tree" model="ir.ui.view">
+        <field name="name">food.name.tree</field>
+        <field name="model">food.name</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_food_name" model="ir.actions.act_window">
+        <field name="name">Food Name</field>
+        <field name="res_model">food.name</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="menu_food_name" name="Food Name"
+        parent="menu_kitchen_info"
+        action="action_food_name"
+        sequence="3" />
+</odoo>

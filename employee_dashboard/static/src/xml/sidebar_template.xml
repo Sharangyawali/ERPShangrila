@@ -1,0 +1,82 @@
+<odoo>
+    <data>
+        <template id="sidebar_template">
+           <aside id="sidebar" class="js-sidebar sidebar-wrapper">
+          <div class="">
+                <style>
+                   .sidebar-item:hover{
+                   background-color:#c7c5c5;
+                   }
+                    ul li a:active{
+                   background-color:#c7c5c5;
+                   }
+               </style>
+           <ul class="sidebar-nav">
+                <li class="sidebar-header">
+                  General
+                </li>
+               <t t-if="show">
+                <li class="sidebar-item">
+                  <a class="sidebar-link"
+                    t-attf-href="/">
+                    <i class="fa-solid fa-list pe-2"></i><span>Dashboard</span></a>
+                </li>
+                <li class="sidebar-item">
+                  <a href="/yearly_calender" class="sidebar-link collapsed"
+  >
+                    <i class="fa fa-calendar pe-2" aria-hidden="true" ></i><span> Office Calender</span>  </a>
+                </li>
+                <li class="sidebar-item ">
+                  <a href="/ot_request_form" class="sidebar-link collapsed">
+                    <i class="fa fa-calendar-plus-o pe-2" aria-hidden="true"  ></i> <span> Overtime Request</span> </a>
+                </li>
+                <li class="sidebar-item">
+                  <a href="/leaveRequest" class="sidebar-link collapsed">
+                    <i class="fa fa-calendar-minus-o pe-2" aria-hidden="true" ></i><span> Leave Request</span> </a>
+                </li>
+                   <li class="sidebar-item">
+                  <a href="/department_leave" class="sidebar-link collapsed">
+                   <i class="fa fa-building-o pe-2" aria-hidden="true" ></i> <span> Colleagues Leave</span> </a>
+                </li>
+                <li class="sidebar-item">
+                  <a href="/checkin_checkout_page" class="sidebar-link collapsed">
+                    <i class="fa fa-check-square pe-2" aria-hidden="true" ></i> <span> Check In/Out</span> </a>
+                </li>
+                <li class="sidebar-item">
+                  <a href="/view_profile" class="sidebar-link collapsed">
+                    <i class="fa-regular fa-user pe-2"  ></i> <span> View Profile</span>  </a>
+                </li>
+                    <li class="sidebar-item">
+                  <a href="/kitchen_requests" class="sidebar-link collapsed">
+                   <i class="fa fa-cutlery pe-2" aria-hidden="true"></i> <span>Kitchen Request</span>  </a>
+                </li>
+                   <t t-if="dept">
+                   <li class="sidebar-item">
+                  <a href="/departments_attendances" class="sidebar-link collapsed">
+                   <i class="fa fa-building pe-2" aria-hidden="true" ></i> <span> Departments Details</span>  </a>
+                </li>
+                   </t>
+                <li class="sidebar-header">
+                  History
+                </li>
+
+                <a href="/leave_history_page" class="sidebar-link collapsed"
+                   aria-expanded="false">Leave History
+                  </a>
+                  <a href="/ot_history_page" class="sidebar-link collapsed"
+                    >Overtime History
+                    </a>
+                <a href="/attendance_history" class="sidebar-link collapsed"
+                   >Attendance History
+                  </a>
+               </t>
+              </ul>
+
+          </div>
+          <button class="btn nav-btn" id="sidebar-toggle" type="button">
+            <i class="fa fa-bars"></i>
+          </button>
+        </aside>
+        </template>
+    </data>
+</odoo>

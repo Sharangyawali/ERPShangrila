@@ -1,0 +1,158 @@
+// @odoo_module your_module_name
+// @odoo_element_style form.oe_expenditure_data
+
+.oe_expenditure_data {
+  // Base form styling
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  // Header
+  h1 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+
+  // Field row styling
+  .oe_expenditure_data_row {
+    display: flex;
+    margin-bottom: 20px;
+    flex-wrap: no-wrap;
+
+    label {
+      width: 180px;
+      text-align: center;
+      padding-right: 10px;
+      font-weight: bold;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      font-size: 14px;
+    }
+    textarea {
+      resize: vertical;
+    }
+  }
+
+  // Submit button
+  .oe_expenditure_data_submit {
+    background-color: #14500f;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 15px;
+
+    &:hover {
+      background-color: #2d9e53;
+    }
+  }
+
+
+
+  .oe_expenditure_data_row_reason {
+    textarea {
+      height: 100px;
+    }
+  }
+}// Variables
+$primary-color: #28a745;
+$danger-color: #dc3545;
+$container-bg-color: #f8f9fa; // Adjust background color as needed
+$container-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Adjust shadow as needed
+
+
+
+.attendance-container {
+    text-align: center;
+    // margin: 50px auto;
+    // padding-top: 25px;
+    width:300px;
+    padding:20px;
+    background-color: $container-bg-color;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2  );
+
+    h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    p {
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+
+    .time-display {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    .check-button {
+        font-size: 18px;
+        padding: 10px 20px;
+        margin: 10px;
+        cursor: pointer;
+        border: none;
+    }
+
+    .check-in {
+        background-color: $primary-color;
+        color: white;
+    }
+
+    .check-out {
+        background-color: $danger-color;
+        color: white;
+    }
+}
+.profile-container {
+  width: 150px; /* Adjust the width as needed */
+  background-color: whitesmoke;
+  height: 150px; /* Adjust the height as needed */
+  overflow: hidden; /* Ensure the image stays within the container */
+  border-radius: 50%; /* Create a circular container (adjust if square) */
+  // margin-left:30px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+
+  .profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Maintain aspect ratio and cover the container */
+  }
+}
+
+@media(max-width:780px){
+.new_ticket{
+margin-left:0 !important;
+margin-right:0 !important;
+
+}
+}
+
+@media (max-width: 500px) {
+    .oe_expenditure_data_row {
+        flex-direction: column;
+        margin-bottom: 10px; /* Add some space between rows */
+
+        label {
+            width: 100%;
+            margin-bottom: 5px; /* Add some space between label and input */
+            display:contents; /* Remove left margin for labels */
+        }
+
+        textarea, input, select {
+            width: 100%;
+            margin-bottom: 5px; /* Add some space between input and next label */
+        }
+    }
+}

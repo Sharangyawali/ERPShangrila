@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- This is to add fields on the form view of hr.employee model -->
+    <record id="hr_employee_form_inherit" model="ir.ui.view">
+        <field name="name">hr.employee.form.inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='oe_button_box']" position="before">
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(action_personal_calender_forEmployee)d" string="Employee Calendar" context="{'search_default_employee_id': id}" class="oe_stat_button" icon="fa-calendar" type="action">
+<!--                            <field name="leave_request_count" widget="statinfo" string="Leave Request" help="Leave Request Details"/>-->
+                        </button>
+                        <button name="%(action_leave_request)d" context="{'search_default_employee_id': id}" class="oe_stat_button" icon="fa-money" type="action">
+                            <field name="leave_request_count" widget="statinfo" string="Leave Request" help="Leave Request Details"/>
+                        </button>
+                    </div>
+
+                </xpath>
+            <!-- Use XPath to replace user_id with new_related_field -->
+            <xpath expr="//page[@name='hr_settings']//field[@name='user_id']" position="replace">
+                <!-- Your new field definition goes here -->
+                <field name="user_id" />
+            </xpath>
+
+
+        </field>
+    </record>
+
+    <!-- hr attendance inherit  -->
+    <!-- HR attendance tree view-->
+    <record id="view_attendance_tree" model="ir.ui.view">
+        <field name="name">hr.attendance.inherit.odoo.attendance.user.location</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.view_attendance_tree" />
+        <field name="arch" type="xml">
+            <field name="check_out" position="after">
+                <field name="checkin_location" />
+                <field name="checkout_location" />
+                <field name="checkin_latitude" />
+                <field name="checkout_latitude" />
+                <field name="checkin_longitude" />
+                <field name="checkout_longitude" />
+                <field name="proof_checkin" widget="binary" class="oe_image_custom"/>
+                <field name="proof_checkout" widget="binary" class="oe_image_custom"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_attendance_filter" model="ir.ui.view">
+        <field name="name">hr.attendance.inherit.odoo.attendance.user.location.filter</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//search/filter[@name='nocheckout']" position="after">
+                <filter string="Archived" name="archived" domain="[('active', '=', False)]" />
+            </xpath>
+        </field>
+    </record>
+
+<!--       <record id="view_attendance_ir_attachment_filter" model="ir.ui.view">-->
+<!--        <field name="name">ir.attachment.inherit.odoo.portal.filter</field>-->
+<!--        <field name="model">ir.attachment</field>-->
+<!--        <field name="inherit_id" ref="base.hr_attendance_view_filter" />-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//search/filter[@name='nocheckout']" position="after">-->
+<!--                <filter string="Archived" name="archived" domain="[('active', '=', False)]" />-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+
+    <!-- HR attendance form view-->
+    <record id="hr_attendance_view_form" model="ir.ui.view">
+        <field name="name">hr.attendance.inherit.odoo.attendance.user.location</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/group" position="after">
+                <group name="checkin" string="Check In">
+                    <field name="checkin_address" class="" />
+                    <field name="checkin_latitude" class="oe_inline" />
+                    <field name="checkin_longitude" class="oe_inline" />
+                    <field name="checkin_location" widget="url" class="" />
+                </group>
+                <group name="checkout" string="Check Out">
+                    <field name="checkout_address" class="" />
+                    <field name="checkout_latitude" class="oe_inline" />
+                    <field name="checkout_longitude" class="oe_inline" />
+                    <field name="checkout_location" widget="url" class="" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

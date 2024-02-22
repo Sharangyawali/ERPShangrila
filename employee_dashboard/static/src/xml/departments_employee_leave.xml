@@ -1,0 +1,148 @@
+<odoo>
+  <!-- Dashboard Template -->
+  <template id="department_in_leave" name="Attendance History Template">
+    <t t-call="website.layout">
+      <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" />
+      <script src="https://kit.fontawesome.com/ae360af17e.js" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js">
+      </script>
+
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.6/dist/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+      <div class="wrapper department_details">
+          <t t-call="employee_dashboard.sidebar_template"></t>
+        <div class="grey-bg container-fluid px-5 template-wrapper">
+        <html lang="en">
+            <head>
+            </head>
+            <body>
+                <div class="container" style="display:flex;">
+                    <div class="right table-responsive" style="flex:8;">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Employee Name</th>
+                                    <th scope="col">Duration Type</th>
+                                    <th scope="col">Leave Type</th>
+                                    <th scope="col">Start Date</th>
+                                    <th scope="col">End Date</th>
+                                    <th scope="col">Allowed Duration</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="leave_list" t-as="cl">
+                                    <tr>
+                                        <th scope="row">
+                                            <span id="s_no" t-out="cl['s_no']"/>
+                                        </th>
+                                        <td>
+                                            <span  t-out="cl['Name']"/>
+                                        </td>
+                                        <td>
+                                            <span t-out="cl['duration_type']" />
+                                        </td>
+                                        <td>
+                                            <span t-out="cl['leave_type']" />
+                                        </td>
+                                        <td>
+                                            <span t-out="cl['start_date']"/>
+                                        </td>
+                                         <td>
+                                            <span t-out="cl['end_date']"/>
+                                        </td>
+                                         <td>
+                                            <span t-out="cl['allowed_duration']"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                <!--                 Below is for pagination controls-->
+                <t t-if="page_count>0">
+
+                    <div class="pagination"
+                        style="padding:5px;justify-content:center;">
+                        <div class="right">
+                            <nav aria-label="Page Navigation">
+                                <ul class="pagination">
+                                    <li class="page-item ">
+                                        <a class="page-link" href="#" tabindex="-1" onclick="loadPreviousPage()">Previous</a>
+                                    </li>
+                                    <t t-foreach="range(1,page_count+1)" t-as="page" t-attf-key="page" >
+                                            <a class="page-link" href="#" >
+                                                <span id="span" t-out="page" type="btn" onclick="thisPage(this)"/>
+                                            </a>
+                                    </t>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" type="btn" onclick="loadNextPage()">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </t>
+
+            </body>
+        </html>
+
+        </div>
+      </div>
+
+      <script type="text/javascript">
+        window.onload=function(){
+        var
+        sidebarToggle=document.querySelector("#sidebar-toggle");sidebarToggle.addEventListener("click",function(){document.querySelector("#sidebar").classList.toggle("collapsed")});
+        }
+          var current_page=1
+          var total_page=<t t-esc="page_count"/>
+          total_page=parseInt(total_page,10)
+           function loadNextPage() {
+
+          event.preventDefault()
+          current_page=parseInt(current_page,10)
+          if(total_page>current_page){
+        var nextUrl = '/department_leave?page=' + (current_page+1);
+        $.get(nextUrl, function(data) {
+            $('.table tbody').html($(data).find('.table tbody').html());
+          current_page=current_page+1
+        });
+          }
+        }
+           function loadPreviousPage() {
+          current_page=parseInt(current_page,10)
+          event.preventDefault()
+          if(current_page>1){
+        var nextUrl = '/department_leave?page=' + (current_page-1);
+        $.get(nextUrl, function(data) {
+            $('.table tbody').html($(data).find('.table tbody').html());
+          current_page=current_page-1
+        });
+          }
+        }
+          function thisPage(data) {
+          event.preventDefault()
+          page=data.innerHTML
+          var nextUrl = '/department_leave?page=' + (page);
+        $.get(nextUrl, function(data) {
+            $('.table tbody').html($(data).find('.table tbody').html());
+          current_page=page
+        });
+        }
+      </script>
+    </t>
+  </template>
+</odoo>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+   <!-- This is to add fields on the form view of hr.employee model -->
+    <record id="hr_employee_inherit_add_page" model="ir.ui.view">
+        <field name="name">hr.employee.inherit.add.page</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group//field[@name='contract']" position="after">
+                <field name="task_type" widget="many2many_tags"></field>
+                <field name="project" widget="many2many_tags"></field>
+                <field name="client" widget="many2many_tags"></field>
+            </xpath>
+        </field>
+    </record>
+</odoo>

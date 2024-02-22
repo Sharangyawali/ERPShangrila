@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+            <!-- Overview List View -->
+            <record model="ir.ui.view" id="employee_task_assignment_list_view">
+                <field name="name">employee.task.assignment.list.view</field>
+                <field name="model">employee.task.assignment</field>
+                <field name="arch" type="xml">
+                    <tree>
+                        <field name="department"/>
+                        <field name="employee_id"/>
+                         <field name="task_name"/>
+                         <field name="assigned_project_id" widget="many2many_tags"/>
+                         <field name="start_date"/>
+                         <field name="client_id"/>
+                        <field name="deadline"/>
+                        <field name="completed_date"></field>
+                         <field name="status" decoration-success="status == 'completed'" decoration-info="status == 'onprogress'" widget="badge" optional="show" on_change="1" modifiers="{&quot;readonly&quot;: true}"/>
+                    </tree>
+                </field>
+            </record>
+    
+            <!-- Form View for SupportSys -->
+            <record model="ir.ui.view" id="employee_task_assignment_form_view">
+                <field name="name">employee.task.assignment.form.view</field>
+                <field name="model">employee.task.assignment</field>
+                <field name="arch" type="xml">
+                    <form>
+                        <sheet>
+                            <group>
+                                <group>
+                                    <field name="department"/>
+                                    <field name="department_id" invisible="true"></field>
+                                    <field name="employee_id" domain="[('department_id','=',department_id)]"/>
+                                    <field name="task_name"/>
+                                    <field name="assigned_project_id" widget="many2many_tags"/>
+                                    <field name="start_date"/>
+                                </group>
+                                <group>
+                                    <field name="assigned_location"/>
+                                    <field name="client_id"/>
+                                   <field name="deadline"/>
+                                    <field name="status" invisible="1"></field>
+                                    <field name="completed_date" attrs="{'invisible': [('status', '=', 'onprogress')]}"></field>
+
+                                </group>
+                            </group>
+                            <notebook>
+                                <page string="Additional Info">
+                                    <field name="notes" placeholder="Notes.."/>
+                                </page>
+                            </notebook>
+                        </sheet>
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids"/>
+                            <field name="activity_ids"/>
+                            <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                        </div>
+                    </form>
+                </field>
+            </record>
+    
+            <record model="ir.actions.act_window" id="action_employee_task_assignment">
+                <field name="name">Task Assignment</field>
+                <field name="res_model">employee.task.assignment</field>
+                <field name="view_mode">tree,form</field>
+            </record>
+</odoo>

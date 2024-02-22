@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- this below is for the ticket type -->
+    <record model="ir.ui.view" id="ticket_type_list_view">
+        <field name="name">ticket.type.list.view</field>
+        <field name="model">ticket.type</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+
+                <field name="name" />
+
+
+            </tree>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="action_ticket_type">
+        <field name="name">Ticket Type</field>
+        <field name="res_model">ticket.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- this below is for the expense type -->
+    <record model="ir.ui.view" id="expense_type_list_view">
+        <field name="name">expense.type.list.view</field>
+        <field name="model">expense.type</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="action_expense_type">
+        <field name="name">Expense Type</field>
+        <field name="res_model">expense.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- this below is for the EMPLOYEE WORK type -->
+    <record model="ir.ui.view" id="employee_work_type_list_view">
+        <field name="name">employee.work.type.list.view</field>
+        <field name="model">employee.work.type</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="work_type" />
+            </tree>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="action_employee_work_type">
+        <field name="name">Employee Work Type</field>
+        <field name="res_model">employee.work.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- this below view is for company service category -->
+    <record model="ir.ui.view" id="company_service_category_list_view">
+        <field name="name">company.service.category.list.view</field>
+        <field name="model">company.service.category</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="action_company_service_category">
+        <field name="name">Company Service Category</field>
+        <field name="res_model">company.service.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- this below view is for company  -->
+    <record model="ir.ui.view" id="company_project_list_view">
+        <field name="name">company.project.list.view</field>
+        <field name="model">company.project</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="company_service_category_id" />
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="action_company_project">
+        <field name="name">Company Project</field>
+        <field name="res_model">company.project</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>
